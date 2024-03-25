@@ -4,7 +4,7 @@ import Challenge from './components/Challenge'
 import List from './components/List'
 import Settings from './components/Settings'
 import Homescreen from './components/Homescreen'
-import './App.css'
+// import './App.css'
 
 function App() {
   const [currentView, setCurrentView] = React.useState('home');
