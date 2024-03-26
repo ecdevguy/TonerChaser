@@ -5,7 +5,7 @@ import List from './components/List'
 import Settings from './components/Settings'
 import Homescreen from './components/Homescreen'
 import { tocflOne } from './vocabulary/tocfl-1'
-// import './App.css'
+import './App.css'
 
 function App() {
   const [currentView, setCurrentView] = React.useState('home');

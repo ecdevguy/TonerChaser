@@ -11,6 +11,7 @@ export default function Study(props) {
         otherPinyin={props.currentCharacter.OtherPinyin}
         level={props.currentCharacter.Level}
         firstTranslation={props.currentCharacter["First Translation"]}
+        audio={true}
       />
       <button onClick={() => props.handlePrevious()}>Previous</button>
       <button onClick={() => props.handleNext()}>Next</button>

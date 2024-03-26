@@ -9,6 +9,7 @@ export default function List(props) {
     otherPinyin={x.OtherPinyin}
     level={x.Level}
     firstTranslation={x["First Translation"]}
+    audio={true}
   />)
   return(
     <>
