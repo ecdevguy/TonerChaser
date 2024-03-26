@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
 
-import App from '../src/App.jsx';
+
+import App from '../App.jsx';
 
 describe('App Component', () => {
   it('should render Study component on study button click', () => {

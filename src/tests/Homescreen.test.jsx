@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import Homescreen from '../src/components/Homescreen';
+
+import Homescreen from '../components/Homescreen';
 
 describe('Homescreen', () => {
   const handleClick = vi.fn();
