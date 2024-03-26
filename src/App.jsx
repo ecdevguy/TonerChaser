@@ -13,6 +13,8 @@ function App() {
   const [currentCharacter, setCurrentCharacter] = React.useState()
   const [index, setIndex] = React.useState(0);
 
+  //ADD SETTINGS 'VOCAB LIST' LIGHT/DARK, RANDOM OR IN ORDER.
+
   const increaseIndex = () => {
     setIndex(prevIndex => (prevIndex + 1) % vocab.length);
   };
