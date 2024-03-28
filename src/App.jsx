@@ -31,6 +31,9 @@ export default function App() {
     setCurrentCharacter(vocab[index]);
   }, [index, vocab]);
 
+  React.useEffect(() => {
+    setIndex(0)
+  }, [vocab])
 
   React.useEffect(() => {
     localStorage.setItem("tocfl1", JSON.stringify(tocflOne))
