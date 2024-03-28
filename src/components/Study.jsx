@@ -8,10 +8,9 @@ export default function Study(props) {
       <Character 
         word={props.currentCharacter.Word}
         pinyin={props.currentCharacter.Pinyin}
-        otherPinyin={props.currentCharacter.OtherPinyin}
+        OtherPinyin={props.currentCharacter.OtherPinyin}
         level={props.currentCharacter.Level}
         firstTranslation={props.currentCharacter["First Translation"]}
-        audio={true}
       />
       <button onClick={() => props.handlePrevious()}>Previous</button>
       <button onClick={() => props.handleNext()}>Next</button>

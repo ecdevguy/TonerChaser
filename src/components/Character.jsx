@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import SettingsContext from '../context/settingsContext';
 
-export default function Character({ word, pinyin, otherPinyin, level }) {
+export default function Character({ word, pinyin, OtherPinyin, level, firstTranslation }) {
     const { userSettings } = useContext(SettingsContext);
 
     const playAudio = () => {
@@ -21,8 +21,9 @@ export default function Character({ word, pinyin, otherPinyin, level }) {
         <div>
             <span>{word}</span>
             <span>{pinyin}</span>
-            <span>{otherPinyin}</span>
+            <span>{OtherPinyin}</span>
             <span>{level}</span>
+            <span>{firstTranslation}</span>
             {userSettings.audio && <button onClick={playAudio}>Play Audio</button>}
         </div>
     );
