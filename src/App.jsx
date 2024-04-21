@@ -8,6 +8,7 @@ import SettingsContext from './context/settingsContext'
 import { tocflOne } from './vocabulary/tocfl-1'
 import { tocflTwo } from './vocabulary/tocfl-2'
 import { tocflThree } from './vocabulary/tocfl-3'
+import { tocflFour } from './vocabulary/tocfl-4'
 import './App.css'
 
 export default function App() {
@@ -39,6 +40,7 @@ export default function App() {
     localStorage.setItem("tocfl1", JSON.stringify(tocflOne))
     localStorage.setItem("tocfl2", JSON.stringify(tocflTwo))
     localStorage.setItem("tocfl3", JSON.stringify(tocflThree))
+    localStorage.setItem("tocfl4", JSON.stringify(tocflFour))
   }, [])
 
   React.useEffect(() => {

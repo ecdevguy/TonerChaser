@@ -10,7 +10,8 @@ export default function List() {
   const unfilteredList = [
     ...JSON.parse(localStorage.getItem("tocfl1")), 
     ...JSON.parse(localStorage.getItem("tocfl2")),
-    ...JSON.parse(localStorage.getItem("tocfl3"))];
+    ...JSON.parse(localStorage.getItem("tocfl3")),
+    ...JSON.parse(localStorage.getItem("tocfl4"))];
   
   const Row = ({ index, style, data }) => {
     const item = data[index];
@@ -81,6 +82,13 @@ export default function List() {
             checked={filterLevel.includes(3)}
             onChange={() => setFilterLevel(prev => prev.includes(3) ? prev.filter(l => l !== 3) : [...prev, 3])}
           /> Level 3
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={filterLevel.includes(4)}
+            onChange={() => setFilterLevel(prev => prev.includes(4) ? prev.filter(l => l !== 4) : [...prev, 4])}
+          /> Level 4
         </label>
       </div>
       <ScrollList
