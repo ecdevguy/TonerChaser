@@ -5,18 +5,23 @@ import Character from './Character'
 
 export default function List() {
   
-// Add side panel for displaying character on hover/click, display related characters on the bottom based on related tags to selected character.
+// Add side panel for displaying custom character component on hover/click, display related characters on the bottom based on related tags to selected character.
   
   const unfilteredList = [
     ...JSON.parse(localStorage.getItem("tocfl1")), 
     ...JSON.parse(localStorage.getItem("tocfl2")),
     ...JSON.parse(localStorage.getItem("tocfl3")),
     ...JSON.parse(localStorage.getItem("tocfl4"))];
+
+  const [item, setItem] = useState()
   
   const Row = ({ index, style, data }) => {
     const item = data[index];
+    const handleClick = () => {
+      setItem(item);
+    };
     return (
-      <div style={style}>
+      <div style={style} onClick={handleClick}>
         <Character
           word={item.Word}
           pinyin={item.Pinyin}
@@ -43,15 +48,6 @@ export default function List() {
     setInputValue(value);
   }, 250), []);
 
-  // const vocab = props.currentVocab.map(x => 
-  // <Character 
-  //   word={x.Word}
-  //   pinyin={x.Pinyin}
-  //   otherPinyin={x.OtherPinyin}
-  //   level={x.Level}
-  //   firstTranslation={x["First Translation"]}
-  //   audio={true}
-  // />)
   return(
     <>
       <h1>list mode</h1>
@@ -91,15 +87,25 @@ export default function List() {
           /> Level 4
         </label>
       </div>
-      <ScrollList
-        height={300}
+      <div className='list--character'>
+        <ScrollList
+        height={450}
         width={600}
-        itemSize={65}
+        itemSize={75}
         itemCount={filteredItems.length}
         itemData={filteredItems}
-      >
+        >
         {Row}
-      </ScrollList>
+        </ScrollList>
+        {item && <Character
+          word={item.Word}
+          pinyin={item.Pinyin}
+          otherPinyin={item.OtherPinyin}
+          level={item.Level}
+          firstTranslation={item["First Translation"]}
+          audio={true}
+        />}
+      </div>
     </div>
     </>
   )

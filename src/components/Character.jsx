@@ -19,7 +19,7 @@ export default function Character({ word, pinyin, OtherPinyin, level, firstTrans
 
     return (
         <div>
-            <h3>{word}</h3>
+            <span>{word}</span>
             <span>{pinyin}</span>
             <span>{OtherPinyin}</span>
             <span>{level}</span>

@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -42,6 +42,29 @@
 .homescreen--container {
   display: flex;
   flex-direction: column;
+} */
+.list--character {
+  display: flex;
+  align-items: center;
+}
+
+.single--character {
+  border-radius: 4px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  margin: .6em 0.4em;
+  font-size: 1.2em;
+  font-weight: 500;
+  font-family: inherit;
+
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+
+
+.single--character:hover {
+  border-color: #646cff;
 }
 
 
