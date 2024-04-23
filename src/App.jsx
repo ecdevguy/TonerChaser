@@ -1,10 +1,12 @@
 import React, { useContext } from 'react'
+import ReactDOM from 'react-dom/client'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import Study from './components/Study'
 import Challenge from './components/Challenge'
 import List from './components/List'
 import Settings from './components/Settings'
 import Homescreen from './components/Homescreen'
-import SettingsContext from './context/settingsContext'
+import Layout from './components/Layout'
 import { tocflOne } from './vocabulary/tocfl-1'
 import { tocflTwo } from './vocabulary/tocfl-2'
 import { tocflThree } from './vocabulary/tocfl-3'
@@ -12,30 +14,6 @@ import { tocflFour } from './vocabulary/tocfl-4'
 import './App.css'
 
 export default function App() {
-  const [currentView, setCurrentView] = React.useState('home');
-  const [vocab, setVocab] = React.useState(() => JSON.parse(localStorage.getItem("tocfl1")) || tocflOne)
-  const [currentCharacter, setCurrentCharacter] = React.useState()
-  const [index, setIndex] = React.useState(0);
-  const { userSettings } = useContext(SettingsContext);
-
-  //ADD SETTINGS 'VOCAB LIST' LIGHT/DARK, RANDOM OR IN ORDER, TOGGLE AUDIO
-
-  const increaseIndex = () => {
-    setIndex(prevIndex => (prevIndex + 1) % vocab.length);
-  };
-
-  const decreaseIndex = () => {
-    setIndex(prevIndex => (prevIndex - 1 + vocab.length) % vocab.length);
-  };
-
-  React.useEffect(() => {
-    setCurrentCharacter(vocab[index]);
-  }, [index, vocab]);
-
-  React.useEffect(() => {
-    setIndex(0)
-  }, [vocab])
-
   React.useEffect(() => {
     localStorage.setItem("tocfl1", JSON.stringify(tocflOne))
     localStorage.setItem("tocfl2", JSON.stringify(tocflTwo))
@@ -43,15 +21,8 @@ export default function App() {
     localStorage.setItem("tocfl4", JSON.stringify(tocflFour))
   }, [])
 
-  React.useEffect(() => {
-    const levels = ['tocfl1', 'tocfl2', 'tocfl3'];
-    const selectedLevelKey = levels.find(level => userSettings[level]) || 'tocfl1';
-    
-    const storedVocab = localStorage.getItem(selectedLevelKey);
-    const vocabList = storedVocab ? JSON.parse(storedVocab) : [];
-
-    setVocab(vocabList);
-}, [userSettings]);
+  const [currentView, setCurrentView] = React.useState('home');
+  
 
   const handleViewChange = (view) => {
     setCurrentView(view);
@@ -59,19 +30,34 @@ export default function App() {
 
 
   return (
-    <div>
-      {/* displays buttons to access parts of app */}
-      {currentView === 'home' && (
-        <Homescreen handleClick={handleViewChange}/>
-      )}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Homescreen />} />
+          <Route path="study" element={<Study />} />
+          <Route path="challenge" element={<Challenge />} />
+          <Route path="list" element={<List />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
 
-      {currentView !== 'home' && <button onClick={() => handleViewChange('home')}>Go Home</button>}
+
+    // <div>
+    //   {/* displays buttons to access parts of app */}
+    //   {currentView === 'home' && (
+    //     <Homescreen handleClick={handleViewChange}/>
+    //   )}
+
+    //   {currentView !== 'home' && <button onClick={() => handleViewChange('home')}>Go Home</button>}
       
-      {currentView === 'study' && <Study currentCharacter={currentCharacter} handlePrevious={decreaseIndex} handleNext={increaseIndex}/>}
-      {currentView === 'challenge' && <Challenge />}
-      {currentView === 'list' && <List currentVocab={vocab}/>}
-      {currentView === 'settings' && <Settings />}
+    //   {currentView === 'study' && <Study />}
+    //   {currentView === 'challenge' && <Challenge />}
+    //   {currentView === 'list' && <List />}
+    //   {currentView === 'settings' && <Settings />}
 
-    </div>
+    // </div>
     )
 }
+
+
