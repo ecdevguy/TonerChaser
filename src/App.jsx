@@ -11,6 +11,9 @@ import { tocflOne } from './vocabulary/tocfl-1'
 import { tocflTwo } from './vocabulary/tocfl-2'
 import { tocflThree } from './vocabulary/tocfl-3'
 import { tocflFour } from './vocabulary/tocfl-4'
+import { tocflFive } from './vocabulary/tocfl-5'
+import { tocflSix } from './vocabulary/tocfl-6'
+import { tocflSeven } from './vocabulary/tocfl-7'
 import './App.css'
 
 export default function App() {
@@ -19,14 +22,11 @@ export default function App() {
     localStorage.setItem("tocfl2", JSON.stringify(tocflTwo))
     localStorage.setItem("tocfl3", JSON.stringify(tocflThree))
     localStorage.setItem("tocfl4", JSON.stringify(tocflFour))
+    localStorage.setItem("tocfl5", JSON.stringify(tocflFive))
+    localStorage.setItem("tocfl6", JSON.stringify(tocflSix))
+    localStorage.setItem("tocfl7", JSON.stringify(tocflSeven))
   }, [])
 
-  const [currentView, setCurrentView] = React.useState('home');
-  
-
-  const handleViewChange = (view) => {
-    setCurrentView(view);
-  };
 
 
   return (
@@ -41,22 +41,6 @@ export default function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-
-
-    // <div>
-    //   {/* displays buttons to access parts of app */}
-    //   {currentView === 'home' && (
-    //     <Homescreen handleClick={handleViewChange}/>
-    //   )}
-
-    //   {currentView !== 'home' && <button onClick={() => handleViewChange('home')}>Go Home</button>}
-      
-    //   {currentView === 'study' && <Study />}
-    //   {currentView === 'challenge' && <Challenge />}
-    //   {currentView === 'list' && <List />}
-    //   {currentView === 'settings' && <Settings />}
-
-    // </div>
     )
 }
 

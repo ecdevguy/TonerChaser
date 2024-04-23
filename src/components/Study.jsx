@@ -9,7 +9,7 @@ export default function Study() {
   const [currentCharacter, setCurrentCharacter] = React.useState("")
   const { userSettings } = useContext(SettingsContext);
   React.useEffect(() => {
-    const levels = ['tocfl1', 'tocfl2', 'tocfl3'];
+    const levels = ['tocfl1', 'tocfl2', 'tocfl3', 'tocfl4', 'tocfl5', 'tocfl6', 'tocfl7'];
     const selectedLevelKey = levels.find(level => userSettings[level]) || 'tocfl1';
     
     const storedVocab = localStorage.getItem(selectedLevelKey);

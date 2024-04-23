@@ -7,11 +7,24 @@ export default function List() {
   
 // Add side panel for displaying custom character component on hover/click, display related characters on the bottom based on related tags to selected character.
   
-  const unfilteredList = [
-    ...JSON.parse(localStorage.getItem("tocfl1")), 
-    ...JSON.parse(localStorage.getItem("tocfl2")),
-    ...JSON.parse(localStorage.getItem("tocfl3")),
-    ...JSON.parse(localStorage.getItem("tocfl4"))];
+
+function cleanData(item) {
+  return {
+    ...item,
+    "First Translation": typeof item["First Translation"] === 'string' ? item["First Translation"] : ''
+  };
+}
+
+const unfilteredList = [
+  ...JSON.parse(localStorage.getItem("tocfl1")).map(cleanData), 
+  ...JSON.parse(localStorage.getItem("tocfl2")).map(cleanData),
+  ...JSON.parse(localStorage.getItem("tocfl3")).map(cleanData),
+  ...JSON.parse(localStorage.getItem("tocfl4")).map(cleanData),
+  ...JSON.parse(localStorage.getItem("tocfl5")).map(cleanData),
+  ...JSON.parse(localStorage.getItem("tocfl6")).map(cleanData),
+  ...JSON.parse(localStorage.getItem("tocfl7")).map(cleanData)
+];
+
 
   const [item, setItem] = useState()
   
@@ -85,6 +98,27 @@ export default function List() {
             checked={filterLevel.includes(4)}
             onChange={() => setFilterLevel(prev => prev.includes(4) ? prev.filter(l => l !== 4) : [...prev, 4])}
           /> Level 4
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={filterLevel.includes(5)}
+            onChange={() => setFilterLevel(prev => prev.includes(5) ? prev.filter(l => l !== 5) : [...prev, 5])}
+          /> Level 5
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={filterLevel.includes(6)}
+            onChange={() => setFilterLevel(prev => prev.includes(6) ? prev.filter(l => l !== 6) : [...prev, 6])}
+          /> Level 6
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={filterLevel.includes(7)}
+            onChange={() => setFilterLevel(prev => prev.includes(7) ? prev.filter(l => l !== 7) : [...prev, 7])}
+          /> Level 7
         </label>
       </div>
       <div className='list--character'>

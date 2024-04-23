@@ -9,7 +9,11 @@ export default function SettingsProvider({ children }) {
             darkMode: false,
             tocfl1: true,
             tocfl2: false,
-            tocfl3: false
+            tocfl3: false,
+            tocfl4: false,
+            tocfl5: false,
+            tocfl6: false,
+            tocfl7: false
         };
     });
 

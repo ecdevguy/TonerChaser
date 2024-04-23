@@ -16,7 +16,11 @@ export default function Settings() {
             ...prevSettings,
             tocfl1: newLevel === 'tocfl1',
             tocfl2: newLevel === 'tocfl2',
-            tocfl3: newLevel === 'tocfl3'
+            tocfl3: newLevel === 'tocfl3',
+            tocfl4: newLevel === 'tocfl4',
+            tocfl5: newLevel === 'tocfl5',
+            tocfl6: newLevel === 'tocfl6',
+            tocfl7: newLevel === 'tocfl7'
         }));
     };
     
@@ -62,6 +66,46 @@ export default function Settings() {
                         onChange={handleLevelChange}
                     />
                     TOCFL 3
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        name="level"
+                        value="tocfl4"
+                        checked={userSettings.tocfl4}
+                        onChange={handleLevelChange}
+                    />
+                    TOCFL 4
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        name="level"
+                        value="tocfl5"
+                        checked={userSettings.tocfl5}
+                        onChange={handleLevelChange}
+                    />
+                    TOCFL 5
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        name="level"
+                        value="tocfl6"
+                        checked={userSettings.tocfl6}
+                        onChange={handleLevelChange}
+                    />
+                    TOCFL 6
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        name="level"
+                        value="tocfl7"
+                        checked={userSettings.tocfl7}
+                        onChange={handleLevelChange}
+                    />
+                    TOCFL 7
                 </label>
             </div>
         </div>
