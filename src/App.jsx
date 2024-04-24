@@ -1,6 +1,5 @@
-import React, { useContext } from 'react'
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Study from './components/Study'
 import Challenge from './components/Challenge'
 import List from './components/List'
