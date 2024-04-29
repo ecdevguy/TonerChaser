@@ -124,7 +124,7 @@ const unfilteredList = [
       <div className='list--character'>
         <ScrollList
         height={450}
-        width={600}
+        width={500}
         itemSize={75}
         itemCount={filteredItems.length}
         itemData={filteredItems}
