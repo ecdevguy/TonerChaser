@@ -67,15 +67,15 @@ const unfilteredList = [
 
   return(
 <>
-      <Grid container direction="column" alignItems="" >
-      <Grid item xs={12} sm={6}  sx={{backgroundColor:"gray"}}>
+      <Grid container direction="column" alignItems="flex-start" m={2} >
+      <Grid item  alignSelf="center" >
       <TextField
-        label="Character Search" variant="outlined" sx={{width:"100%"}}
+        label="Character Search" variant="outlined" sx={{width:"394px", m:"10px"}}
         onChange={(e) => handleFilterChange(e.target.value)}
         placeholder="輸入......"
       />
 </Grid>
-<Grid item xs={12} sm={6} sx={{backgroundColor:"lightcoral"}}>
+<Grid item  sx={{minWidth:"394px", m:"10px"}}>
         <FormControl  component="fieldset">
           <FormLabel component="legend">TOCFL levels</FormLabel>
           <FormGroup row>
@@ -117,8 +117,11 @@ const unfilteredList = [
           </FormGroup>
         </FormControl>
         </Grid>
-        </Grid>
-      <Box className='list--character'>
+      
+      </Grid>
+
+      <Grid container direction="row">
+      <Grid item className='list--character'>
         <ScrollList
         height={450}
         width={500}
@@ -128,7 +131,8 @@ const unfilteredList = [
         >
         {Row}
         </ScrollList>
-        {item && <Character
+      </Grid>
+      <Grid item sx={{backgroundColor:"gray"}} >{item && <Character
           word={item.Word}
           pinyin={item.Pinyin}
           otherPinyin={item.OtherPinyin}
@@ -136,7 +140,7 @@ const unfilteredList = [
           firstTranslation={item["First Translation"]}
           audio={true}
         />}
-      </Box>
+        </Grid></Grid>
       </>
   )
 }
