@@ -19,9 +19,14 @@ export default function ListCharacter({ word, pinyin, OtherPinyin, level, firstT
     };
 
     return (
-        <Box sx={{display:"flex"}}>
-            <Typography>{word}</Typography>
-            <Typography>{firstTranslation}</Typography>
+        <Box display="flex">
+            <Typography m={2}>{word}</Typography>
+            <Divider orientation='vertical' flexItem/>
+            <Typography m={2}>
+                {firstTranslation.length > 35
+                ? firstTranslation.slice(0, firstTranslation.substring(0, 35).lastIndexOf(" ")) + "..."
+                : firstTranslation}
+            </Typography>
         </Box>
     );
 }

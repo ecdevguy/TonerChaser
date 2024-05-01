@@ -3,7 +3,8 @@ import { FixedSizeList as ScrollList } from 'react-window';
 import _ from 'lodash';
 import Character from './Character'
 import ListCharacter from './ListCharacter'
-import { Box, Divider, ListItemButton } from '@mui/material';
+import { Box, Checkbox, Container, Divider, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, ListItemButton, Stack, TextField } from '@mui/material';
+import { CheckBox } from '@mui/icons-material';
 
 export default function List() {
   
@@ -16,6 +17,8 @@ function cleanData(item) {
     "First Translation": typeof item["First Translation"] === 'string' ? item["First Translation"] : ''
   };
 }
+
+const label = { inputProps: { 'aria-label': 'Checkbox for level select' } };
 
 const unfilteredList = [
   ...JSON.parse(localStorage.getItem("tocfl1")).map(cleanData), 
@@ -63,66 +66,59 @@ const unfilteredList = [
   }, 250), []);
 
   return(
-    <>
-      <h1>list mode</h1>
-      <div>
-      <input
-        type="text"
+<>
+      <Grid container direction="column" alignItems="" >
+      <Grid item xs={12} sm={6}  sx={{backgroundColor:"gray"}}>
+      <TextField
+        label="Character Search" variant="outlined" sx={{width:"100%"}}
         onChange={(e) => handleFilterChange(e.target.value)}
-        placeholder="Filter by word..."
+        placeholder="輸入......"
       />
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            checked={filterLevel.includes(1)}
-            onChange={() => setFilterLevel(prev => prev.includes(1) ? prev.filter(l => l !== 1) : [...prev, 1])}
-          /> Level 1
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={filterLevel.includes(2)}
-            onChange={() => setFilterLevel(prev => prev.includes(2) ? prev.filter(l => l !== 2) : [...prev, 2])}
-          /> Level 2
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={filterLevel.includes(3)}
-            onChange={() => setFilterLevel(prev => prev.includes(3) ? prev.filter(l => l !== 3) : [...prev, 3])}
-          /> Level 3
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={filterLevel.includes(4)}
-            onChange={() => setFilterLevel(prev => prev.includes(4) ? prev.filter(l => l !== 4) : [...prev, 4])}
-          /> Level 4
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={filterLevel.includes(5)}
-            onChange={() => setFilterLevel(prev => prev.includes(5) ? prev.filter(l => l !== 5) : [...prev, 5])}
-          /> Level 5
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={filterLevel.includes(6)}
-            onChange={() => setFilterLevel(prev => prev.includes(6) ? prev.filter(l => l !== 6) : [...prev, 6])}
-          /> Level 6
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={filterLevel.includes(7)}
-            onChange={() => setFilterLevel(prev => prev.includes(7) ? prev.filter(l => l !== 7) : [...prev, 7])}
-          /> Level 7
-        </label>
-      </div>
-      <div className='list--character'>
+</Grid>
+<Grid item xs={12} sm={6} sx={{backgroundColor:"lightcoral"}}>
+        <FormControl  component="fieldset">
+          <FormLabel component="legend">TOCFL levels</FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={<Checkbox checked={filterLevel.includes(1)}
+              onChange={() => setFilterLevel(prev => prev.includes(1) ? prev.filter(l => l !== 1) : [...prev, 1])}/>}
+              label="1"
+            />
+            <FormControlLabel
+              control={<Checkbox checked={filterLevel.includes(2)}
+              onChange={() => setFilterLevel(prev => prev.includes(2) ? prev.filter(l => l !== 2) : [...prev, 2])}/>}
+              label="2"
+            />
+            <FormControlLabel
+              control={<Checkbox checked={filterLevel.includes(3)}
+              onChange={() => setFilterLevel(prev => prev.includes(3) ? prev.filter(l => l !== 3) : [...prev, 3])}/>}
+              label="3"
+            />
+            <FormControlLabel
+              control={<Checkbox checked={filterLevel.includes(4)}
+              onChange={() => setFilterLevel(prev => prev.includes(4) ? prev.filter(l => l !== 4) : [...prev, 4])}/>}
+              label="4"
+            />
+            <FormControlLabel
+              control={<Checkbox checked={filterLevel.includes(5)}
+              onChange={() => setFilterLevel(prev => prev.includes(5) ? prev.filter(l => l !== 5) : [...prev, 5])}/>}
+              label="5"
+            />
+            <FormControlLabel
+              control={<Checkbox checked={filterLevel.includes(6)}
+              onChange={() => setFilterLevel(prev => prev.includes(6) ? prev.filter(l => l !== 6) : [...prev, 6])}/>}
+              label="6"
+            />
+            <FormControlLabel
+              control={<Checkbox checked={filterLevel.includes(7)}
+              onChange={() => setFilterLevel(prev => prev.includes(7) ? prev.filter(l => l !== 7) : [...prev, 7])}/>}
+              label="7"
+            />
+          </FormGroup>
+        </FormControl>
+        </Grid>
+        </Grid>
+      <Box className='list--character'>
         <ScrollList
         height={450}
         width={500}
@@ -140,8 +136,7 @@ const unfilteredList = [
           firstTranslation={item["First Translation"]}
           audio={true}
         />}
-      </div>
-    </div>
-    </>
+      </Box>
+      </>
   )
 }

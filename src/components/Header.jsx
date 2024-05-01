@@ -99,7 +99,7 @@ function Header() {
           </Typography>
           <HomeRounded sx={{display:{xs:"block", sm:"none"}}}/>
         </Link>
-        <Search
+        {/* <Search
           value={value}
           onChange={(event, newValue) => {
             setValue(newValue);
@@ -117,7 +117,7 @@ function Header() {
           getOptionLabel={(option) => option.Word}
           sx={{ width: 300 }}
           renderInput={(params) => <TextField {...params} placeholder="Search..." />}
-        />
+        /> */}
         <Features>
           <Link component={RouterLink} underline="none" to="study" color="inherit">
             <Typography>Study</Typography>
