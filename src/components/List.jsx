@@ -2,6 +2,8 @@ import React, { useState, useMemo, useCallback } from 'react'
 import { FixedSizeList as ScrollList } from 'react-window';
 import _ from 'lodash';
 import Character from './Character'
+import ListCharacter from './ListCharacter'
+import { Box, Divider, ListItemButton } from '@mui/material';
 
 export default function List() {
   
@@ -34,16 +36,15 @@ const unfilteredList = [
       setItem(item);
     };
     return (
-      <div style={style} onClick={handleClick}>
-        <Character
+      <>
+      <ListItemButton style={style} onClick={handleClick}>
+        <ListCharacter
           word={item.Word}
-          pinyin={item.Pinyin}
-          otherPinyin={item.OtherPinyin}
-          level={item.Level}
           firstTranslation={item["First Translation"]}
-          audio={true}
         />
-      </div>
+      </ListItemButton>
+      
+      </>
     );
   };
 

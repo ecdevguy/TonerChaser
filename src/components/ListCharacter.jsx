@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import SettingsContext from '../context/settingsContext';
 import { Box, Button, Divider, Typography } from '@mui/material';
 
-export default function Character({ word, pinyin, OtherPinyin, level, firstTranslation, listItem }) {
+export default function ListCharacter({ word, pinyin, OtherPinyin, level, firstTranslation }) {
     const { userSettings } = useContext(SettingsContext);
 
     const playAudio = () => {
@@ -19,13 +19,9 @@ export default function Character({ word, pinyin, OtherPinyin, level, firstTrans
     };
 
     return (
-        <Box>
+        <Box sx={{display:"flex"}}>
             <Typography>{word}</Typography>
-            <Typography>{pinyin}</Typography>
-            <Typography>{OtherPinyin}</Typography>
-            <Typography>{level}</Typography>
             <Typography>{firstTranslation}</Typography>
-            {userSettings.audio && <Button onClick={playAudio}>Play Audio</Button>}
         </Box>
     );
 }
