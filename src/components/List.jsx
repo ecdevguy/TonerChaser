@@ -132,7 +132,7 @@ const unfilteredList = [
         {Row}
         </ScrollList>
       </Grid>
-      <Grid item sx={{backgroundColor:"gray"}} >{item && <Character
+      <Grid item alignSelf="center" sx={{backgroundColor:"gray"}} >{item && <Character
           word={item.Word}
           pinyin={item.Pinyin}
           otherPinyin={item.OtherPinyin}
