@@ -3,13 +3,23 @@ import { FixedSizeList as ScrollList } from 'react-window';
 import _ from 'lodash';
 import Character from './Character'
 import ListCharacter from './ListCharacter'
-import { Box, Checkbox, Container, Divider, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, ListItemButton, Stack, TextField } from '@mui/material';
+import { Box, Checkbox, Container, Divider, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, ListItemButton, Modal, Stack, TextField, Typography } from '@mui/material';
 import { CheckBox } from '@mui/icons-material';
+
+const styleModal = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  boxShadow: 24
+};
 
 export default function List() {
   
 // Add side panel for displaying custom character component on hover/click, display related characters on the bottom based on related tags to selected character.
-  
+const [open, setOpen] = React.useState(false);
+const handleOpen = () => setOpen(true);
+const handleClose = () => setOpen(false);
 
 function cleanData(item) {
   return {
@@ -37,6 +47,7 @@ const unfilteredList = [
     const item = data[index];
     const handleClick = () => {
       setItem(item);
+      handleOpen();
     };
     return (
       <>
@@ -141,6 +152,23 @@ const unfilteredList = [
     />}
     </Grid>
   </Grid>
+  <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={styleModal}>
+          {item && <Character
+            word={item.Word}
+            pinyin={item.Pinyin}
+            otherPinyin={item.OtherPinyin}
+            level={item.Level}
+            firstTranslation={item["First Translation"]}
+            audio={true}
+          />}
+        </Box>
+      </Modal>
 </>
   )
 }
