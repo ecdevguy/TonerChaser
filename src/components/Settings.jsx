@@ -106,8 +106,9 @@ export default function Settings() {
                         onChange={handleLevelChange}
                     />
                     TOCFL 7
-                </label>
+                </label> 
             </div>
         </div>
     );
 }
+//copy radioboxes from list
