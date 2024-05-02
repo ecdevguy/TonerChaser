@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import SettingsContext from '../context/settingsContext';
-import { Box, Button, Divider, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, Divider, IconButton, Typography } from '@mui/material';
+import { Hearing, VolumeUp } from '@mui/icons-material';
 
 export default function Character({ word, pinyin, OtherPinyin, level, firstTranslation, listItem }) {
     const { userSettings } = useContext(SettingsContext);
@@ -20,12 +21,17 @@ export default function Character({ word, pinyin, OtherPinyin, level, firstTrans
 
     return (
         <Box>
-            <Typography>{word}</Typography>
-            <Typography>{pinyin}</Typography>
-            <Typography>{OtherPinyin}</Typography>
-            <Typography>{level}</Typography>
-            <Typography>{firstTranslation}</Typography>
-            {userSettings.audio && <Button onClick={playAudio}>Play Audio</Button>}
+            <Card sx={{ width: 375, height: 300 }}>
+                <CardContent>
+                    <Typography variant='h3' sx={{display:"inline"}}>{word}</Typography>
+                    {userSettings.audio && <IconButton aria-label="play audio" onClick={playAudio}><VolumeUp/></IconButton>}
+                    <Typography variant='h5'>{pinyin}</Typography>
+                    <Divider/>
+                    {/* <Typography>{OtherPinyin}</Typography> */}
+                    {/* <Typography>{level}</Typography> */}
+                    <Typography variant='h6'>{firstTranslation}</Typography>
+                </CardContent>
+            </Card>
         </Box>
     );
 }

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import Character from './Character'
 import SettingsContext from '../context/settingsContext';
+import { Button } from '@mui/material';
 // import { tocflOne } from '../vocabulary/tocfl-1';
 
 export default function Study() {
@@ -43,8 +44,8 @@ export default function Study() {
         level={currentCharacter.Level}
         firstTranslation={currentCharacter["First Translation"]}
       />
-      <button onClick={() => increaseIndex()}>Previous</button>
-      <button onClick={() => decreaseIndex()}>Next</button>
+      <Button variant="outlined" onClick={() => increaseIndex()}>Previous</Button>
+      <Button variant="outlined" onClick={() => decreaseIndex()}>Next</Button>
     </>
   )
 }
