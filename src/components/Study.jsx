@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import Character from './Character'
 import SettingsContext from '../context/settingsContext';
-import { Button } from '@mui/material';
+import { Box, Button, ButtonGroup } from '@mui/material';
 // import { tocflOne } from '../vocabulary/tocfl-1';
 
 export default function Study() {
@@ -35,8 +35,7 @@ export default function Study() {
     setIndex(prevIndex => (prevIndex - 1 + vocab.length) % vocab.length);
   };
   return(
-    <>
-      <h1>study mode</h1>
+    <Box display="flex" flexDirection="column" p={10} alignItems="center" gap={3}>
       <Character 
         word={currentCharacter.Word}
         pinyin={currentCharacter.Pinyin}
@@ -44,8 +43,12 @@ export default function Study() {
         level={currentCharacter.Level}
         firstTranslation={currentCharacter["First Translation"]}
       />
-      <Button variant="outlined" onClick={() => increaseIndex()}>Previous</Button>
-      <Button variant="outlined" onClick={() => decreaseIndex()}>Next</Button>
-    </>
+      
+        <ButtonGroup >
+        <Button display="inline" variant="outlined" onClick={() => increaseIndex()}>Previous</Button>
+        <Button display="inline" variant="outlined" onClick={() => decreaseIndex()}>Next</Button>
+        </ButtonGroup>
+      
+    </Box>
   )
 }
