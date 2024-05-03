@@ -90,7 +90,7 @@ function Header() {
     setAnchorEl(null);
   };
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" sx={{marginBottom:"30px"}}>
       <StyledToolbar> 
         <Link 
         component={RouterLink} underline="none" className="site-logo" to="/" color="inherit">

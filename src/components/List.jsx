@@ -5,6 +5,8 @@ import Character from './Character'
 import ListCharacter from './ListCharacter'
 import { Box, Checkbox, Container, Divider, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, ListItemButton, Modal, Stack, TextField, Typography } from '@mui/material';
 import { CheckBox } from '@mui/icons-material';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 const styleModal = {
   position: 'absolute',
@@ -14,8 +16,11 @@ const styleModal = {
   boxShadow: 24
 };
 
+
+
 export default function List() {
-  
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
 // Add side panel for displaying custom character component on hover/click, display related characters on the bottom based on related tags to selected character.
 const [open, setOpen] = React.useState(false);
 const handleOpen = () => setOpen(true);
@@ -77,18 +82,18 @@ const unfilteredList = [
 
   return(
 <>
-  <Grid container direction="row" justifyContent="center" >
+  <Grid container direction="row" justifyContent="center" spacing={8} >
     <Grid item >
-      <Grid container direction="column" justifyContent="center">
+      <Grid container direction="column" justifyContent="center" rowSpacing={2}>
         <Grid item>
           <TextField
-            label="Character Search" variant="outlined" sx={{ m:"10px"}}
+            label="Character Search" variant="outlined" sx={{width:"100%"}}
             onChange={(e) => handleFilterChange(e.target.value)}
             placeholder="輸入......"
           />
         </Grid>
       <Grid item  >
-      <FormControl  component="fieldset">
+      <FormControl  component="fieldset" >
         <FormLabel component="legend">TOCFL levels</FormLabel>
         <FormGroup row>
           <FormControlLabel
@@ -142,7 +147,7 @@ const unfilteredList = [
     </Grid>
   </Grid>
   </Grid>
-    <Grid item alignContent="center">{item && <Character
+    {matches && <Grid item alignContent="center">{item && <Character
       word={item.Word}
       pinyin={item.Pinyin}
       otherPinyin={item.OtherPinyin}
@@ -150,13 +155,14 @@ const unfilteredList = [
       firstTranslation={item["First Translation"]}
       audio={true}
     />}
-    </Grid>
+    </Grid>}
   </Grid>
-  <Modal
+  {!matches && <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        
       >
         <Box sx={styleModal}>
           {item && <Character
@@ -168,7 +174,7 @@ const unfilteredList = [
             audio={true}
           />}
         </Box>
-      </Modal>
+      </Modal>}
 </>
   )
 }

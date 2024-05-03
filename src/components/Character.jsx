@@ -20,13 +20,13 @@ export default function Character({ word, pinyin, OtherPinyin, level, firstTrans
     };
 
     return (
-        <Box>
-            <Card sx={{ width: 375, height: 300 }}>
+        <Box >
+            <Card sx={{ width: 340, height: 320, p: 1 }}>
                 <CardContent>
-                    <Typography variant='h3' sx={{display:"inline"}}>{word}</Typography>
+                    <Typography variant='h3' sx={{display:"inline", marginBottom: 2}}>{word}</Typography>
                     {userSettings.audio && <IconButton aria-label="play audio" onClick={playAudio}><VolumeUp/></IconButton>}
-                    <Typography variant='h5'>{pinyin}</Typography>
-                    <Divider/>
+                    <Typography variant='h5' sx={{marginBottom: 1}}>{pinyin}</Typography>
+                    <Divider sx={{marginBottom: 2}}/>
                     {/* <Typography>{OtherPinyin}</Typography> */}
                     {/* <Typography>{level}</Typography> */}
                     <Typography variant='h6'>{firstTranslation}</Typography>
