@@ -21,7 +21,7 @@ export default function Character({ word, pinyin, OtherPinyin, level, firstTrans
 
     return (
         <Box >
-            <Card sx={{ width: 340, height: 320, p: 1 }}>
+            <Card sx={{ width:{xs: 290, sm: 340}, height:{xs: 320, sm: 300}, p: 1 }}>
                 <CardContent>
                     <Typography variant='h3' sx={{display:"inline", marginBottom: 2}}>{word}</Typography>
                     {userSettings.audio && <IconButton aria-label="play audio" onClick={playAudio}><VolumeUp/></IconButton>}
@@ -29,7 +29,7 @@ export default function Character({ word, pinyin, OtherPinyin, level, firstTrans
                     <Divider sx={{marginBottom: 2}}/>
                     {/* <Typography>{OtherPinyin}</Typography> */}
                     {/* <Typography>{level}</Typography> */}
-                    <Typography variant='h6'>{firstTranslation}</Typography>
+                    <Typography variant='h6' fontWeight={300}>{firstTranslation}</Typography>
                 </CardContent>
             </Card>
         </Box>

@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+html,body{
+  overflow-x: hidden;
+}
+
 /* .list--character {
   display: flex;
   align-items: center;

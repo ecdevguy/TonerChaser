@@ -20,7 +20,7 @@ const styleModal = {
 
 export default function List() {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const matches = useMediaQuery(theme.breakpoints.up('md'));
 // Add side panel for displaying custom character component on hover/click, display related characters on the bottom based on related tags to selected character.
 const [open, setOpen] = React.useState(false);
 const handleOpen = () => setOpen(true);
@@ -82,51 +82,58 @@ const unfilteredList = [
 
   return(
 <>
-  <Grid container direction="row" justifyContent="center" spacing={8} >
+  <Grid container direction="row" justifyContent="center" spacing={14} >
     <Grid item >
-      <Grid container direction="column" justifyContent="center" rowSpacing={2}>
+      <Grid container direction="column" justifyContent="center" rowSpacing={{xs: 2, sm: 4}} sx={{width:{xs: "320px", sm: "445px"}}}>
         <Grid item>
           <TextField
-            label="Character Search" variant="outlined" sx={{width:"100%"}}
+            label="Character Search" variant="outlined" sx={{width:{xs: "70%", sm: "95%"}}}
             onChange={(e) => handleFilterChange(e.target.value)}
             placeholder="輸入......"
           />
         </Grid>
-      <Grid item  >
-      <FormControl  component="fieldset" >
+      <Grid item >
+      <FormControl  component="fieldset">
         <FormLabel component="legend">TOCFL levels</FormLabel>
-        <FormGroup row>
+        <FormGroup row sx={{width:{xs: "390px", sm: "450px"}}}>
           <FormControlLabel
+            sx={{marginRight:{xs: 1, sm: 3}}}
             control={<Checkbox checked={filterLevel.includes(1)}
             onChange={() => setFilterLevel(prev => prev.includes(1) ? prev.filter(l => l !== 1) : [...prev, 1])}/>}
             label="1"
           />
           <FormControlLabel
+            sx={{marginRight:{xs: 1, sm: 3}}}
             control={<Checkbox checked={filterLevel.includes(2)}
             onChange={() => setFilterLevel(prev => prev.includes(2) ? prev.filter(l => l !== 2) : [...prev, 2])}/>}
             label="2"
           />
           <FormControlLabel
+            sx={{marginRight:{xs: 1, sm: 3}}}
             control={<Checkbox checked={filterLevel.includes(3)}
             onChange={() => setFilterLevel(prev => prev.includes(3) ? prev.filter(l => l !== 3) : [...prev, 3])}/>}
             label="3"
           />
           <FormControlLabel
+            sx={{marginRight:{xs: 1, sm: 3}}}
             control={<Checkbox checked={filterLevel.includes(4)}
             onChange={() => setFilterLevel(prev => prev.includes(4) ? prev.filter(l => l !== 4) : [...prev, 4])}/>}
             label="4"
           />
           <FormControlLabel
+            sx={{marginRight:{xs: 1, sm: 3}}}
             control={<Checkbox checked={filterLevel.includes(5)}
             onChange={() => setFilterLevel(prev => prev.includes(5) ? prev.filter(l => l !== 5) : [...prev, 5])}/>}
             label="5"
           />
           <FormControlLabel
+            sx={{marginRight:{xs: 1, sm: 3}}}
             control={<Checkbox checked={filterLevel.includes(6)}
             onChange={() => setFilterLevel(prev => prev.includes(6) ? prev.filter(l => l !== 6) : [...prev, 6])}/>}
             label="6"
           />
           <FormControlLabel
+            sx={{marginRight:{xs: 1, sm: 3}}}
             control={<Checkbox checked={filterLevel.includes(7)}
             onChange={() => setFilterLevel(prev => prev.includes(7) ? prev.filter(l => l !== 7) : [...prev, 7])}/>}
             label="7"
@@ -137,7 +144,7 @@ const unfilteredList = [
     <Grid item className='list--character' >
       <ScrollList
       height={450}
-      width={500}
+      width={480}
       itemSize={75}
       itemCount={filteredItems.length}
       itemData={filteredItems}

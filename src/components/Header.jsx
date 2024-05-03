@@ -6,7 +6,9 @@ import { HomeRounded, MenuRounded, SettingsRounded } from '@mui/icons-material'
 const StyledToolbar = styled(Toolbar) ({
   display:"flex",
   justifyContent:"space-between",
-  color:"white"
+  color:"white",
+  minWidth: "320px",
+  margin: "0"
 })
 
 const Search = styled(Autocomplete)(({theme})=>({
