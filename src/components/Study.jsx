@@ -52,11 +52,11 @@ export default function Study() {
   return(
     <Box display="flex" flexDirection="column" p={6} alignItems="center" gap={3}>
       <Character 
-        word={currentCharacter.Word}
-        pinyin={currentCharacter.Pinyin}
-        OtherPinyin={currentCharacter.OtherPinyin}
-        level={currentCharacter.Level}
-        firstTranslation={currentCharacter["First Translation"]}
+        word={currentCharacter?.Word}
+        pinyin={currentCharacter?.Pinyin}
+        OtherPinyin={currentCharacter?.OtherPinyin}
+        level={currentCharacter?.Level}
+        firstTranslation={currentCharacter?.["First Translation"]}
       />
       
         <ButtonGroup >
