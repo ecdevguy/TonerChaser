@@ -39,7 +39,7 @@ export default function Settings() {
                 <FormControlLabel
                         control={<Checkbox checked={userSettings.audio}
                         onChange={toggleAudioSetting}/>}
-                        label="Audio Playback"
+                        label="Audio Playback (inaccurate)"
                     />
                 </FormGroup>
             </FormControl>

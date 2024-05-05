@@ -23,7 +23,7 @@ export default function ListCharacter({ word, pinyin, OtherPinyin, level, firstT
         gap={{xs: 1, sm: 2}}
         p={1}
         >
-            <Typography variant='h5' sx={{minWidth:{xs: "30px", sm: "75px"}}}>{word}</Typography>
+            <Typography variant='h5' sx={{minWidth:{xs: "30px", sm: "75px"}, fontFamily: "KaiTi"}}>{word}</Typography>
             <Divider orientation='vertical' flexItem/>
             <Typography variant='h6' fontWeight={300}>
                 {firstTranslation.length > 35
