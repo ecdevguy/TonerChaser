@@ -16,15 +16,31 @@ import { tocflSeven } from './vocabulary/tocfl-7'
 import './App.css'
 
 export default function App() {
+
   React.useEffect(() => {
-    localStorage.setItem("tocfl1", JSON.stringify(tocflOne))
-    localStorage.setItem("tocfl2", JSON.stringify(tocflTwo))
-    localStorage.setItem("tocfl3", JSON.stringify(tocflThree))
-    localStorage.setItem("tocfl4", JSON.stringify(tocflFour))
-    localStorage.setItem("tocfl5", JSON.stringify(tocflFive))
-    localStorage.setItem("tocfl6", JSON.stringify(tocflSix))
-    localStorage.setItem("tocfl7", JSON.stringify(tocflSeven))
-  }, [])
+    // Check if localStorage has the items before setting them
+    if (!localStorage.getItem("tocfl1")) {
+        localStorage.setItem("tocfl1", JSON.stringify(tocflOne));
+    }
+    if (!localStorage.getItem("tocfl2")) {
+        localStorage.setItem("tocfl2", JSON.stringify(tocflTwo));
+    }
+    if (!localStorage.getItem("tocfl3")) {
+        localStorage.setItem("tocfl3", JSON.stringify(tocflThree));
+    }
+    if (!localStorage.getItem("tocfl4")) {
+        localStorage.setItem("tocfl4", JSON.stringify(tocflFour));
+    }
+    if (!localStorage.getItem("tocfl5")) {
+        localStorage.setItem("tocfl5", JSON.stringify(tocflFive));
+    }
+    if (!localStorage.getItem("tocfl6")) {
+        localStorage.setItem("tocfl6", JSON.stringify(tocflSix));
+    }
+    if (!localStorage.getItem("tocfl7")) {
+        localStorage.setItem("tocfl7", JSON.stringify(tocflSeven));
+    }
+}, []);
 
 
 

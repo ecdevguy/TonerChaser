@@ -124,7 +124,7 @@ function Header() {
           <Link component={RouterLink} underline="none" to="study" color="inherit">
             <Typography>Study</Typography>
           </Link>
-          <Link component={RouterLink} underline="none" to="challenge" color="inherit">
+          <Link component={RouterLink} underline="none" to="challenge" color="inherit" >
             <Typography>Challenge</Typography>
           </Link>
           <Link component={RouterLink} underline="none" to="list" color="inherit">
