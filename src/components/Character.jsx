@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import SettingsContext from '../context/settingsContext';
-import { Box, Button, Card, CardContent, Divider, IconButton, TextField, Typography, Chip } from '@mui/material';
-import { Draw, EditOff, VolumeUp } from '@mui/icons-material';
+import { Box, Button, Card, CardContent, Divider, IconButton, TextField, Typography, Chip, ButtonGroup, Container } from '@mui/material';
+import { Draw, EditOff, VolumeUp, Close } from '@mui/icons-material';
 import ChineseCharacter from './ChineseCharacter';
 
 export default function Character({ word, pinyin, otherPinyin, level, firstTranslation, initialTags }) {
@@ -9,9 +9,9 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
     const [writingMode, setWritingMode] = useState(false);
     const [tags, setTags] = useState(initialTags || []);
     const [newTag, setNewTag] = useState('');
+    const [showAddTagInput, setShowAddTagInput] = useState(false);
 
     useEffect(() => {
-        // Load tags from localStorage on component mount and when word changes
         const loadTags = () => {
             const levelKey = `tocfl${level}`;
             const levelData = JSON.parse(localStorage.getItem(levelKey)) || [];
@@ -32,6 +32,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
             setTags(updatedTags);
             updateLocalStorage(updatedTags);
             setNewTag('');
+            setShowAddTagInput(false); // Hide input field on successful add
         }
     };
 
@@ -61,36 +62,52 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
         }
     };
 
+    const handleCancel = () => {
+        setShowAddTagInput(false); // Hide the input box
+        setNewTag(''); // Clear any input
+    };
+
     return (
         <Box>
-            <Card sx={{ width: 360, height: 330, p: 1 }}>
+            <Card sx={{ width: 360, height: 380, p: 1 }}>
                 <CardContent>
-                    <Box display="flex" alignItems="end" height={80}>
+                    <Box display="flex" alignItems="end">
                         {writingMode ? <ChineseCharacter character={word} /> :
                             <Typography variant='h2' sx={{ display: "inline", fontFamily: "KaiTi" }}>{word}</Typography>}
-                        <Box display="flex" flexDirection="column" ml={2}>
+                        <Box display="flex" flexDirection="column" ml={1} height={80}>
                             {writingMode ? <IconButton onClick={handleWritingModeOff}><EditOff /></IconButton> :
                                 <IconButton onClick={handleWritingModeOn}><Draw /></IconButton>}
                             {userSettings.audio && <IconButton aria-label="play audio" onClick={playAudio}><VolumeUp /></IconButton>}
+                            <Button onClick={() => setShowAddTagInput(true)} size="small">Add Tag</Button>
                         </Box>
                     </Box>
                     <Typography variant='h5' mb={1}>{pinyin}</Typography>
                     <Divider sx={{ mb: 2 }} />
                     <Typography variant='h6' fontWeight={300}>{firstTranslation}</Typography>
-                    <Box sx={{ mt: 2 }}>
+                    <Box sx={{ mt: 1 }}>
                         {tags.map((tag, index) => (
-                            <Chip key={index} label={tag} onDelete={() => handleRemoveTag(tag)} />
+                            <Chip sx={{margin: .4}} key={index} label={tag} onDelete={() => handleRemoveTag(tag)} />
                         ))}
-                        <TextField
-                            value={newTag}
-                            onChange={(e) => setNewTag(e.target.value)}
-                            placeholder="Add a new tag"
-                            size="small"
-                            variant="outlined"
-                            fullWidth
-                            sx={{ mt: 1 }}
-                        />
-                        <Button onClick={handleAddTag} size="small" sx={{ mt: 1 }}>Add Tag</Button>
+                        {showAddTagInput && (
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
+                                <TextField
+                                    value={newTag}
+                                    onChange={(e) => setNewTag(e.target.value)}
+                                    placeholder="Add a new tag"
+                                    size="small"
+                                    variant="outlined"
+                                    
+                                />
+                                <ButtonGroup variant="text">
+                                    <Button onClick={handleAddTag} size="small">
+                                        Save
+                                    </Button>
+                                    <Button onClick={handleCancel} size="small">
+                                        Exit
+                                    </Button>
+                                </ButtonGroup>
+                            </Box>
+                        )}
                     </Box>
                 </CardContent>
             </Card>
