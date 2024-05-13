@@ -69,7 +69,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
 
     return (
         <Box>
-            <Card sx={{ width: 360, height: 380, p: 1 }}>
+            <Card sx={{ minWidth: 360, minHeight: 360, p: 1 }}>
                 <CardContent>
                     <Box display="flex" alignItems="end">
                         {writingMode ? <ChineseCharacter character={word} /> :
@@ -83,7 +83,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
                     </Box>
                     <Typography variant='h5' mb={1}>{pinyin}</Typography>
                     <Divider sx={{ mb: 2 }} />
-                    <Typography variant='h6' fontWeight={300}>{firstTranslation}</Typography>
+                    <Typography variant='h6' fontWeight={300} maxWidth={360}>{firstTranslation}</Typography>
                     <Box sx={{ mt: 1 }}>
                         {tags.map((tag, index) => (
                             <Chip sx={{margin: .4}} key={index} label={tag} onDelete={() => handleRemoveTag(tag)} />
