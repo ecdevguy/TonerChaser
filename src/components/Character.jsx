@@ -13,7 +13,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
 
     useEffect(() => {
         const loadTags = () => {
-            const levelKey = `tocfl${level}`;
+            const levelKey = `TOCFL${level}`;
             const levelData = JSON.parse(localStorage.getItem(levelKey)) || [];
             const characterData = levelData.find(item => item.Word === word);
             if (characterData && characterData.tags) {
@@ -43,7 +43,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
     };
 
     const updateLocalStorage = (updatedTags) => {
-        const levelKey = `tocfl${level}`;
+        const levelKey = `TOCFL${level}`;
         let levelData = JSON.parse(localStorage.getItem(levelKey)) || [];
         levelData = levelData.map(item => item.Word === word ? {...item, tags: updatedTags} : item);
         localStorage.setItem(levelKey, JSON.stringify(levelData));
@@ -74,10 +74,10 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
                     <Box display="flex" alignItems="end">
                         {writingMode ? <ChineseCharacter character={word} /> :
                             <Typography variant='h2' sx={{ display: "inline", fontFamily: "KaiTi" }}>{word}</Typography>}
-                        <Box display="flex" flexDirection="column" ml={1} height={80}>
-                            {writingMode ? <IconButton onClick={handleWritingModeOff}><EditOff /></IconButton> :
-                                <IconButton onClick={handleWritingModeOn}><Draw /></IconButton>}
-                            {userSettings.audio && <IconButton aria-label="play audio" onClick={playAudio}><VolumeUp /></IconButton>}
+                        <Box display="flex" flexDirection="column" alignItems="center" ml={1} height={80}>
+                            {writingMode ? <IconButton onClick={handleWritingModeOff} sx={{width: 40}}><EditOff/></IconButton> :
+                                <IconButton onClick={handleWritingModeOn} sx={{width: 40}}><Draw /></IconButton>}
+                            {userSettings.audio && <IconButton aria-label="play audio" onClick={playAudio} sx={{width: 40}}><VolumeUp /></IconButton>}
                             <Button onClick={() => setShowAddTagInput(true)} size="small">Add Tag</Button>
                         </Box>
                     </Box>

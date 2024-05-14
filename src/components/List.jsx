@@ -37,13 +37,13 @@ export default function List() {
 
   useEffect(() => {
     const data = [
-        ...JSON.parse(localStorage.getItem("tocfl1")).map(cleanData), 
-        ...JSON.parse(localStorage.getItem("tocfl2")).map(cleanData),
-        ...JSON.parse(localStorage.getItem("tocfl3")).map(cleanData),
-        ...JSON.parse(localStorage.getItem("tocfl4")).map(cleanData),
-        ...JSON.parse(localStorage.getItem("tocfl5")).map(cleanData),
-        ...JSON.parse(localStorage.getItem("tocfl6")).map(cleanData),
-        ...JSON.parse(localStorage.getItem("tocfl7")).map(cleanData)
+        ...JSON.parse(localStorage.getItem("TOCFL1")).map(cleanData), 
+        ...JSON.parse(localStorage.getItem("TOCFL2")).map(cleanData),
+        ...JSON.parse(localStorage.getItem("TOCFL3")).map(cleanData),
+        ...JSON.parse(localStorage.getItem("TOCFL4")).map(cleanData),
+        ...JSON.parse(localStorage.getItem("TOCFL5")).map(cleanData),
+        ...JSON.parse(localStorage.getItem("TOCFL6")).map(cleanData),
+        ...JSON.parse(localStorage.getItem("TOCFL7")).map(cleanData)
     ];
     setUnfilteredList(data);
 }, [item]);
@@ -157,13 +157,14 @@ const Row = ({ index, style, data }) => {
                 </Grid>
                 {matches && <Grid item alignContent="center">
                     {item && <Character
+                        key={item.Word}
                         word={item.Word}
                         pinyin={item.Pinyin}
                         otherPinyin={item.OtherPinyin}
                         level={item.Level}
                         firstTranslation={item["First Translation"]}
                         audio={true}
-                        tags={item.tags}
+                        initialTags={item?.tags}
                     />}
                 </Grid>}
             </Grid>
@@ -175,13 +176,14 @@ const Row = ({ index, style, data }) => {
             >
                 <Box sx={styleModal}>
                     {item && <Character
+                        key={item.Word}
                         word={item.Word}
                         pinyin={item.Pinyin}
                         otherPinyin={item.OtherPinyin}
                         level={item.Level}
                         firstTranslation={item["First Translation"]}
                         audio={true}
-                        tags={item.tags}
+                        initialTags={item?.tags}
                     />}
                 </Box>
             </Modal>}
@@ -229,13 +231,13 @@ const Row = ({ index, style, data }) => {
 //   const label = { inputProps: { 'aria-label': 'Checkbox for level select' } };
 
 //   const unfilteredList = [
-//     ...JSON.parse(localStorage.getItem("tocfl1")).map(cleanData), 
-//     ...JSON.parse(localStorage.getItem("tocfl2")).map(cleanData),
-//     ...JSON.parse(localStorage.getItem("tocfl3")).map(cleanData),
-//     ...JSON.parse(localStorage.getItem("tocfl4")).map(cleanData),
-//     ...JSON.parse(localStorage.getItem("tocfl5")).map(cleanData),
-//     ...JSON.parse(localStorage.getItem("tocfl6")).map(cleanData),
-//     ...JSON.parse(localStorage.getItem("tocfl7")).map(cleanData)
+//     ...JSON.parse(localStorage.getItem("TOCFL1")).map(cleanData), 
+//     ...JSON.parse(localStorage.getItem("TOCFL2")).map(cleanData),
+//     ...JSON.parse(localStorage.getItem("TOCFL3")).map(cleanData),
+//     ...JSON.parse(localStorage.getItem("TOCFL4")).map(cleanData),
+//     ...JSON.parse(localStorage.getItem("TOCFL5")).map(cleanData),
+//     ...JSON.parse(localStorage.getItem("TOCFL6")).map(cleanData),
+//     ...JSON.parse(localStorage.getItem("TOCFL7")).map(cleanData)
 //   ];
 
 

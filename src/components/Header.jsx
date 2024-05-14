@@ -50,38 +50,38 @@ function Header() {
   const [inputValue, setInputValue] = React.useState('');
 
 
-  function cleanData(item) {
-    return {
-      ...item,
-      "First Translation": typeof item["First Translation"] === 'string' ? item["First Translation"] : ''
-    };
-  }
+  // function cleanData(item) {
+  //   return {
+  //     ...item,
+  //     "First Translation": typeof item["First Translation"] === 'string' ? item["First Translation"] : ''
+  //   };
+  // }
   
-  const unfilteredList = [
-    ...JSON.parse(localStorage.getItem("tocfl1")).map(cleanData), 
-    ...JSON.parse(localStorage.getItem("tocfl2")).map(cleanData),
-    ...JSON.parse(localStorage.getItem("tocfl3")).map(cleanData),
-    ...JSON.parse(localStorage.getItem("tocfl4")).map(cleanData),
-    ...JSON.parse(localStorage.getItem("tocfl5")).map(cleanData),
-    ...JSON.parse(localStorage.getItem("tocfl6")).map(cleanData),
-    ...JSON.parse(localStorage.getItem("tocfl7")).map(cleanData)
-  ];
+  // // const unfilteredList = [
+  // //   ...JSON.parse(localStorage.getItem("TOCFL1")).map(cleanData), 
+  // //   ...JSON.parse(localStorage.getItem("TOCFL2")).map(cleanData),
+  // //   ...JSON.parse(localStorage.getItem("TOCFL3")).map(cleanData),
+  // //   ...JSON.parse(localStorage.getItem("TOCFL4")).map(cleanData),
+  // //   ...JSON.parse(localStorage.getItem("TOCFL5")).map(cleanData),
+  // //   ...JSON.parse(localStorage.getItem("TOCFL6")).map(cleanData),
+  // //   ...JSON.parse(localStorage.getItem("TOCFL7")).map(cleanData)
+  // // ];
 
-  const options = unfilteredList.map((option) => {
-    const characterLevel = option.Level;
+  // const options = unfilteredList.map((option) => {
+  //   const characterLevel = option.Level;
   
-    let levelDescription;
-    if (/[1-7]/.test(characterLevel)) {
-      levelDescription = `Level ${characterLevel}`;
-    } else {
-      levelDescription = characterLevel;
-    }
+  //   let levelDescription;
+  //   if (/[1-7]/.test(characterLevel)) {
+  //     levelDescription = `Level ${characterLevel}`;
+  //   } else {
+  //     levelDescription = characterLevel;
+  //   }
   
-    return {
-      characterLevel: levelDescription,
-      ...option,
-    };
-  });
+  //   return {
+  //     characterLevel: levelDescription,
+  //     ...option,
+  //   };
+  // });
   
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -124,9 +124,9 @@ function Header() {
           <Link component={RouterLink} underline="none" to="study" color="inherit">
             <Typography>Study</Typography>
           </Link>
-          <Link component={RouterLink} underline="none" to="challenge" color="inherit" >
+          {/* <Link component={RouterLink} underline="none" to="challenge" color="inherit" >
             <Typography>Challenge</Typography>
-          </Link>
+          </Link> */}
           <Link component={RouterLink} underline="none" to="list" color="inherit">
             <Typography>List</Typography>
           </Link>
@@ -157,13 +157,13 @@ function Header() {
               </Typography>
             </Link>
           </MenuItem>
-          <MenuItem >
+          {/* <MenuItem >
             <Link component={RouterLink} underline="none" to="challenge" color="inherit">
               <Typography>
                 Challenge
               </Typography>
             </Link>
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem >
             <Link component={RouterLink} underline="none" to="list" color="inherit">
               <Typography>
