@@ -15,12 +15,12 @@ const styleModal = {
   boxShadow: 24
 };
 
-export default function List() {
+export default function List({ fetchTocfl, loading }) {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('md'));
     const [open, setOpen] = useState(false);
     const [item, setItem] = useState();
-    const [filterLevel, setFilterLevel] = useState([]);
+    const [filterLevel, setFilterLevel] = useState([1]);
     const [inputValue, setInputValue] = useState('');
     const [tags, setTags] = useState([]);
     const [unfilteredList, setUnfilteredList] = useState([])
@@ -28,7 +28,7 @@ export default function List() {
     function cleanData(item) {
       return {
           ...item,
-          "T": typeof item["T"] === 'string' ? item["T"] : '',
+          "T": typeof item.T === 'string' ? item.T : '',
           "tags": item.tags || []
       };
   }
@@ -36,22 +36,35 @@ export default function List() {
 
 
   useEffect(() => {
-    const data = [
-        ...JSON.parse(localStorage.getItem("TOCFL1")).map(cleanData), 
-        ...JSON.parse(localStorage.getItem("TOCFL2")).map(cleanData),
-        ...JSON.parse(localStorage.getItem("TOCFL3")).map(cleanData),
-        ...JSON.parse(localStorage.getItem("TOCFL4")).map(cleanData),
-        ...JSON.parse(localStorage.getItem("TOCFL5")).map(cleanData),
-        ...JSON.parse(localStorage.getItem("TOCFL6")).map(cleanData),
-        ...JSON.parse(localStorage.getItem("TOCFL7")).map(cleanData)
-    ];
-    setUnfilteredList(data);
-}, [item]);
+    if (
+        localStorage.getItem("TOCFL1") && localStorage.getItem("TOCFL2") && localStorage.getItem("TOCFL3") && localStorage.getItem("TOCFL4") && localStorage.getItem("TOCFL5") && localStorage.getItem("TOCFL6") && localStorage.getItem("TOCFL7")
+    ) {
+        const data = [
+            ...JSON.parse(localStorage.getItem("TOCFL1")).map(cleanData), 
+            ...JSON.parse(localStorage.getItem("TOCFL2")).map(cleanData),
+            ...JSON.parse(localStorage.getItem("TOCFL3")).map(cleanData),
+            ...JSON.parse(localStorage.getItem("TOCFL4")).map(cleanData),
+            ...JSON.parse(localStorage.getItem("TOCFL5")).map(cleanData),
+            ...JSON.parse(localStorage.getItem("TOCFL6")).map(cleanData),
+            ...JSON.parse(localStorage.getItem("TOCFL7")).map(cleanData)
+        ];
+        setUnfilteredList(data);
+        console.log("setting")
+    } else {
+        setUnfilteredList([]);
+        console.log('not set');
+    }
+}, [loading]);
 
+useEffect(() => {
+    [1, 2, 3, 4, 5, 6, 7].map((num) => {
+        fetchTocfl(`TOCFL${num}`);
+    })
+  }, [])
 
     const filteredItems = useMemo(() => unfilteredList.filter(item =>
-        (filterLevel.length === 0 || filterLevel.includes(item.Level)) &&
-        (item.Word.includes(inputValue) || item["First Translation"].includes(inputValue) || item.tags.includes(inputValue))
+        (filterLevel.length === 0 || filterLevel.includes(item.L)) &&
+        (item.W.includes(inputValue) || item.T.includes(inputValue) || item.tags.includes(inputValue))
     ), [filterLevel, inputValue, unfilteredList]);
 
     const handleFilterChange = useCallback(_.debounce((value) => {
@@ -74,8 +87,8 @@ const Row = ({ index, style, data }) => {
       return (
           <ListItemButton style={style} onClick={handleClick}>
               <ListCharacter
-                  word={item.Word}
-                  firstTranslation={item["First Translation"]}
+                  word={item.W}
+                  firstTranslation={item.T}
               />
           </ListItemButton>
       );
@@ -157,12 +170,12 @@ const Row = ({ index, style, data }) => {
                 </Grid>
                 {matches && <Grid item alignContent="center">
                     {item && <Character
-                        key={item.Word}
-                        word={item.Word}
-                        pinyin={item.Pinyin}
-                        otherPinyin={item.OtherPinyin}
-                        level={item.Level}
-                        firstTranslation={item["First Translation"]}
+                        key={item.W}
+                        word={item.W}
+                        pinyin={item.P}
+                        
+                        level={item.L}
+                        firstTranslation={item.T}
                         audio={true}
                         initialTags={item?.tags}
                     />}
@@ -176,12 +189,12 @@ const Row = ({ index, style, data }) => {
             >
                 <Box sx={styleModal}>
                     {item && <Character
-                        key={item.Word}
-                        word={item.Word}
-                        pinyin={item.Pinyin}
-                        otherPinyin={item.OtherPinyin}
-                        level={item.Level}
-                        firstTranslation={item["First Translation"]}
+                        key={item.W}
+                        word={item.W}
+                        pinyin={item.P}
+                        
+                        level={item.L}
+                        firstTranslation={item.T}
                         audio={true}
                         initialTags={item?.tags}
                     />}

@@ -51,7 +51,7 @@ export default function App() {
           <Route index element={<Homescreen />} />
           <Route path="study" element={<Study fetchTocfl={fetchVocabData} loading={loading}/>} />
           <Route path="challenge" element={<Challenge />} />
-          <Route path="list" element={<List />} />
+          <Route path="list" element={<List fetchTocfl={fetchVocabData} loading={loading}/>} />
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
