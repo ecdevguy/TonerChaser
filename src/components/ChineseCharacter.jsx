@@ -13,7 +13,7 @@ function ChineseCharacter({ character }) {
           try {
             // Safely attempt to destroy the writer if it exists
             if (child.writer) {
-              child.writer.destroy();
+              () => child.writer.destroy();
             }
           } catch (error) {
             console.error("Failed to destroy the writer:", error);

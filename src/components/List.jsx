@@ -28,7 +28,7 @@ export default function List() {
     function cleanData(item) {
       return {
           ...item,
-          "First Translation": typeof item["First Translation"] === 'string' ? item["First Translation"] : '',
+          "T": typeof item["T"] === 'string' ? item["T"] : '',
           "tags": item.tags || []
       };
   }

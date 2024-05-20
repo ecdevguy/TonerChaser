@@ -15,7 +15,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
         const loadTags = () => {
             const levelKey = `TOCFL${level}`;
             const levelData = JSON.parse(localStorage.getItem(levelKey)) || [];
-            const characterData = levelData.find(item => item.Word === word);
+            const characterData = levelData.find(item => item.W === word);
             if (characterData && characterData.tags) {
                 setTags(characterData.tags);
             }

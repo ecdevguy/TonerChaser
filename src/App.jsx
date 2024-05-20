@@ -8,49 +8,48 @@ import Homescreen from './components/Homescreen'
 import Layout from './components/Layout'
 
 import db from './firebase';
-import { collection, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import './App.css'
 
 export default function App() {
-  const [vocabData, setVocabData] = useState({});
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      const levelKeys = ['TOCFL1', 'TOCFL2', 'TOCFL3', 'TOCFL4', 'TOCFL5', 'TOCFL6', 'TOCFL7'];
-      const vocabData = {};
-      const expiryDuration = 24 * 60 * 60 * 1000; // 24 hours
-
-      for (const levelKey of levelKeys) {
-        const cachedData = localStorage.getItem(levelKey);
-        const lastFetch = localStorage.getItem(`${levelKey}_timestamp`);
+  const expiryDuration = 24 * 60 * 60 * 1000; // 24 hours
+  const [loading, setLoading] = React.useState(false);
+  const fetchVocabData = async (levelKey) => {
+    const cachedData = localStorage.getItem(levelKey);
+    const lastFetch = localStorage.getItem(`${levelKey}_timestamp`);
     
-        if (cachedData && lastFetch && (Date.now() - lastFetch < expiryDuration)) {
-          vocabData[levelKey.toLowerCase()] = JSON.parse(cachedData);
-        } else {
-          const querySnapshot = await getDocs(collection(db, levelKey));
-          const data = querySnapshot.docs.map(doc => doc.data());
-          localStorage.setItem(levelKey, JSON.stringify(data));
-          localStorage.setItem(`${levelKey}_timestamp`, Date.now().toString());
-          vocabData[levelKey.toLowerCase()] = data;
-        }
+    if (cachedData && lastFetch && (Date.now() - lastFetch < expiryDuration)) {
+      console.log(`Using cached data for ${levelKey}`);
+    } 
+    else {
+      console.log(`Fetching data for ${levelKey} from Firestore`);
+      setLoading(true);
+      const docRef = doc(db, "VocabLevels", levelKey);  // Adjust path to match your Firestore setup
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data().vocabItems;  // Assuming 'vocabItems' holds the array of vocab
+        localStorage.setItem(levelKey, JSON.stringify(data));
+        localStorage.setItem(`${levelKey}_timestamp`, Date.now().toString());
+
+      } 
+      else {
+          console.log("No such document!");
       }
+      setLoading(false);
+    }
+  }
+  // React.useEffect(() => {
+  //   fetchVocabData("TOCFL1")
+  // }, []);
   
-      setVocabData(vocabData);
-    };
   
-    fetchData();
-  }, []);
-
   
-
-
-
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Homescreen />} />
-          <Route path="study" element={<Study />} />
+          <Route path="study" element={<Study fetchTocfl={fetchVocabData} loading={loading}/>} />
           <Route path="challenge" element={<Challenge />} />
           <Route path="list" element={<List />} />
           <Route path="settings" element={<Settings />} />
