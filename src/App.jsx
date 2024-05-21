@@ -10,8 +10,17 @@ import Layout from './components/Layout'
 import db from './firebase';
 import { doc, getDoc } from "firebase/firestore";
 import './App.css'
+import { ThemeProvider, createTheme } from '@mui/material'
 
 export default function App() {
+  const [mode, setMode] = useState("light")
+
+  const darkTheme = createTheme({
+    palette:{
+      mode: mode
+    }
+  })
+  
   const expiryDuration = 24 * 60 * 60 * 1000; // 24 hours
   const [loading, setLoading] = React.useState(false);
   const fetchVocabData = async (levelKey) => {
@@ -45,17 +54,19 @@ export default function App() {
   
   
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Homescreen />} />
-          <Route path="study" element={<Study fetchTocfl={fetchVocabData} loading={loading}/>} />
-          <Route path="challenge" element={<Challenge />} />
-          <Route path="list" element={<List fetchTocfl={fetchVocabData} loading={loading}/>} />
-          <Route path="settings" element={<Settings />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={darkTheme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout mode={mode} setMode={setMode}/>}>
+            <Route index element={<Homescreen />} />
+            <Route path="study" element={<Study fetchTocfl={fetchVocabData} loading={loading}/>} />
+            <Route path="challenge" element={<Challenge />} />
+            <Route path="list" element={<List fetchTocfl={fetchVocabData} loading={loading}/>} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
     )
 }
 

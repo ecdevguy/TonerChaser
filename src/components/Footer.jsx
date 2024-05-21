@@ -29,7 +29,7 @@ export default function Footer() {
           m: 1,
         }}
       >
-        <Typography variant="caption" color="initial">
+        <Typography variant="caption" color={"text.primary"}>
           last updated: May, 2024
         </Typography>
       </Box>

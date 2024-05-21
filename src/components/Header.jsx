@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { AppBar, Autocomplete, Box, Button, InputBase, Link, Menu, MenuItem, Modal, TextField, Toolbar, Typography, styled } from '@mui/material'
-import { HomeRounded, MenuRounded, SettingsRounded } from '@mui/icons-material'
+import { AppBar, Autocomplete, Box, Button, IconButton, InputBase, Link, Menu, MenuItem, Modal, TextField, Toolbar, Typography, styled } from '@mui/material'
+import { DarkMode, DarkModeOutlined, HomeRounded, LightMode, MenuRounded, SettingsRounded } from '@mui/icons-material'
 
 const StyledToolbar = styled(Toolbar) ({
   display:"flex",
@@ -45,7 +45,7 @@ const style = {
   p: 4,
 };
 
-function Header() {
+function Header({ mode, setMode }) {
   const [value, setValue] = React.useState();
   const [inputValue, setInputValue] = React.useState('');
 
@@ -121,6 +121,16 @@ function Header() {
           renderInput={(params) => <TextField {...params} placeholder="Search..." />}
         /> */}
         <Features>
+        {
+          mode === "dark" ?
+          <IconButton>
+            <LightMode onClick={e => setMode(mode === "light" ? "dark" : "light")}/>
+          </IconButton> :
+          <IconButton>
+            <DarkModeOutlined sx={{ color:"white" }} onClick={e => setMode(mode === "dark" ? "light" : "dark")}/>
+          </IconButton>
+
+        }
           <Link component={RouterLink} underline="none" to="study" color="inherit">
             <Typography>Study</Typography>
           </Link>
@@ -135,6 +145,16 @@ function Header() {
           </Link>
         </Features>
       <UserBox>
+        {
+          mode === "dark" ?
+          <IconButton>
+            <LightMode onClick={e => setMode(mode === "light" ? "dark" : "light")}/>
+          </IconButton> :
+          <IconButton>
+            <DarkModeOutlined sx={{ color:"white" }} onClick={e => setMode(mode === "dark" ? "light" : "dark")}/>
+          </IconButton>
+
+        }
         <Button
           id="basic-button"
           color="inherit"
