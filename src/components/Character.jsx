@@ -45,7 +45,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
     const updateLocalStorage = (updatedTags) => {
         const levelKey = `TOCFL${level}`;
         let levelData = JSON.parse(localStorage.getItem(levelKey)) || [];
-        levelData = levelData.map(item => item.Word === word ? {...item, tags: updatedTags} : item);
+        levelData = levelData.map(item => item.W === word ? {...item, tags: updatedTags} : item);
         localStorage.setItem(levelKey, JSON.stringify(levelData));
     };
 
