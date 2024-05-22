@@ -1,8 +1,20 @@
 import React, { useContext, useState, useEffect } from 'react';
 import SettingsContext from '../context/settingsContext';
-import { Box, Button, Card, CardContent, Divider, IconButton, TextField, Typography, Chip, ButtonGroup, Container } from '@mui/material';
-import { Draw, EditOff, VolumeUp, Close } from '@mui/icons-material';
+import { Box, Button, Card, CardContent, Divider, IconButton, TextField, Typography, Chip, ButtonGroup, Container, Modal } from '@mui/material';
+import { BrushOutlined, EditOff, VolumeUp, Close } from '@mui/icons-material';
 import ChineseCharacter from './ChineseCharacter';
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 270,
+    bgcolor: 'background.paper',
+    border: '2px solid #969696',
+    boxShadow: 24,
+    p: 4,
+  };
 
 export default function Character({ word, pinyin, otherPinyin, level, firstTranslation, initialTags }) {
     const { userSettings } = useContext(SettingsContext);
@@ -10,6 +22,9 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
     const [tags, setTags] = useState(initialTags || []);
     const [newTag, setNewTag] = useState('');
     const [showAddTagInput, setShowAddTagInput] = useState(false);
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     useEffect(() => {
         const loadTags = () => {
@@ -66,17 +81,26 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
         setShowAddTagInput(false); // Hide the input box
         setNewTag(''); // Clear any input
     };
+    
 
     return (
         <Box>
             <Card sx={{ minWidth: 360, minHeight: 360, p: 1 }}>
                 <CardContent>
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={style} >
+                    <ChineseCharacter character={word} />
+                    </Box>
+                </Modal>
                     <Box display="flex" alignItems="end">
-                        {writingMode ? <ChineseCharacter character={word} /> :
-                            <Typography variant='h2' sx={{ display: "inline", fontFamily: "KaiTi" }}>{word}</Typography>}
+                            <Typography variant='h2' sx={{ display: "inline", fontFamily: "KaiTi" }}>{word}</Typography>
                         <Box display="flex" flexDirection="column" alignItems="center" ml={1} height={80}>
-                            {writingMode ? <IconButton onClick={handleWritingModeOff} sx={{width: 40}}><EditOff/></IconButton> :
-                                <IconButton onClick={handleWritingModeOn} sx={{width: 40}}><Draw /></IconButton>}
+                            <IconButton onClick={handleOpen} sx={{width: 40}}><BrushOutlined /></IconButton>
                             {userSettings.audio && <IconButton aria-label="play audio" onClick={playAudio} sx={{width: 40}}><VolumeUp /></IconButton>}
                             <Button onClick={() => setShowAddTagInput(true)} size="small">Add Tag</Button>
                         </Box>

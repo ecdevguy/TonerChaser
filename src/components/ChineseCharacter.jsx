@@ -3,7 +3,7 @@ import HanziWriter from 'hanzi-writer';
 
 function ChineseCharacter({ character }) {
   const containerRef = useRef(null);
-
+  let charCount = 0;
   useEffect(() => {
     // Cleanup function to handle the destruction of HanziWriter instances and their containers properly
     const cleanupWriters = () => {
@@ -37,17 +37,29 @@ function ChineseCharacter({ character }) {
     character.split('').forEach((char, index) => {
       const container = document.createElement('div');
       container.id = `hanzi-container-${index}`;
-      container.style.display = 'inline-block';
+      container.style.display = index === 0 ? 'inline-block' : 'none';
       containerRef.current.appendChild(container);
-
+      charCount = index;
       const writer = HanziWriter.create(container.id, char, {
-        width: 60,
-        height: 60,
+        width: 210,
+        height: 210,
         padding: 0,
         showOutline: true,
-        showCharacter: false
+        showCharacter: false,
+        strokeColor: '#45a8f5'
       });
-      writer.quiz();
+      writer.quiz({
+        onComplete: function() {
+          if (index < charCount) {
+            const nextHanzi = document.getElementById(`hanzi-container-${index + 1}`);
+          nextHanzi.id = `hanzi-container-${index}`;
+          nextHanzi.style.display = 'inline-block';
+          container.style.display = 'none';
+          } else {
+            // container.style.display = 'none';
+          }
+        }
+      });
 
       // Store the writer reference for later cleanup
       container.writer = writer;
@@ -57,7 +69,9 @@ function ChineseCharacter({ character }) {
     return cleanupWriters;
   }, [character]);
 
-  return <div ref={containerRef} />;
+  return (
+    <div ref={containerRef} />
+  )
 }
 
 export default ChineseCharacter;
