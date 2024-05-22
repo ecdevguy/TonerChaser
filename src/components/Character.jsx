@@ -94,7 +94,8 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={style} >
-                    <ChineseCharacter character={word} />
+                    <ChineseCharacter character={word}/>
+                    
                     </Box>
                 </Modal>
                     <Box display="flex" alignItems="end">

@@ -6,7 +6,7 @@ export default function SettingsProvider({ children }) {
         const localSettings = localStorage.getItem('userSettings');
         return localSettings ? JSON.parse(localSettings) : {
             audio: false,
-            darkMode: false,
+            color: "#307cff",
             tocfl1: true,
             tocfl2: false,
             tocfl3: false,

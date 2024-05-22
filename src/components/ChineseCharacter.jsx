@@ -1,7 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import HanziWriter from 'hanzi-writer';
+import SettingsContext from '../context/settingsContext';
 
 function ChineseCharacter({ character }) {
+  const { userSettings, setUserSettings } = useContext(SettingsContext);
   const containerRef = useRef(null);
   let charCount = 0;
   useEffect(() => {
@@ -46,7 +48,7 @@ function ChineseCharacter({ character }) {
         padding: 0,
         showOutline: true,
         showCharacter: false,
-        strokeColor: '#45a8f5'
+        strokeColor: userSettings.color
       });
       writer.quiz({
         onComplete: function() {
