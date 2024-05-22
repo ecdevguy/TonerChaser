@@ -7,6 +7,7 @@ export default function SettingsProvider({ children }) {
         return localSettings ? JSON.parse(localSettings) : {
             audio: false,
             color: "#307cff",
+            darkMode: "light",
             tocfl1: true,
             tocfl2: false,
             tocfl3: false,

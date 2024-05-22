@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Study from './components/Study'
 import Challenge from './components/Challenge'
@@ -6,18 +6,25 @@ import List from './components/List'
 import Settings from './components/Settings'
 import Homescreen from './components/Homescreen'
 import Layout from './components/Layout'
-
+import SettingsContext from './context/settingsContext';
 import db from './firebase';
 import { doc, getDoc } from "firebase/firestore";
 import './App.css'
 import { ThemeProvider, createTheme } from '@mui/material'
 
 export default function App() {
-  const [mode, setMode] = useState("light")
+  const [mode, setMode] = useState("light");
+  const { userSettings, setUserSettings } = useContext(SettingsContext);
 
+  const toggleDarkModeSetting = () => {
+    setUserSettings(prevSettings => ({
+        ...prevSettings,
+        darkMode: prevSettings.darkMode === "light" ? "dark" : "light"
+    }));
+};
   const darkTheme = createTheme({
     palette:{
-      mode: mode
+      mode: userSettings.darkMode
     }
   })
   
@@ -57,7 +64,7 @@ export default function App() {
     <ThemeProvider theme={darkTheme}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout mode={mode} setMode={setMode}/>}>
+          <Route path="/" element={<Layout mode={userSettings.darkMode} setMode={toggleDarkModeSetting}/>}>
             <Route index element={<Homescreen />} />
             <Route path="study" element={<Study fetchTocfl={fetchVocabData} loading={loading}/>} />
             <Route path="challenge" element={<Challenge />} />

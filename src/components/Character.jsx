@@ -1,23 +1,36 @@
 import React, { useContext, useState, useEffect } from 'react';
 import SettingsContext from '../context/settingsContext';
-import { Box, Button, Card, CardContent, Divider, IconButton, TextField, Typography, Chip, ButtonGroup, Container, Modal } from '@mui/material';
-import { BrushOutlined, EditOff, VolumeUp, Close } from '@mui/icons-material';
+import { Box, Button, Card, CardContent, Divider, IconButton, TextField, Typography, Chip, ButtonGroup, Container, Modal, Checkbox, FormControlLabel, FormGroup } from '@mui/material';
+import { BrushOutlined, EditOff, VolumeUp, Close, VolumeOff } from '@mui/icons-material';
 import ChineseCharacter from './ChineseCharacter';
 
 const style = {
     position: 'absolute',
+    top: '40%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 202,
+    height: 202,
+    bgcolor: 'background.paper',
+    border: '1px solid #969696',
+    boxShadow: 24,
+    p: 0,
+  };
+
+  const styleAudio = {
+    position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 270,
+    width: 210,
     bgcolor: 'background.paper',
     border: '2px solid #969696',
     boxShadow: 24,
-    p: 4,
+    p: 3,
   };
 
 export default function Character({ word, pinyin, otherPinyin, level, firstTranslation, initialTags }) {
-    const { userSettings } = useContext(SettingsContext);
+    const { userSettings, setUserSettings } = useContext(SettingsContext);
     const [writingMode, setWritingMode] = useState(false);
     const [tags, setTags] = useState(initialTags || []);
     const [newTag, setNewTag] = useState('');
@@ -25,6 +38,16 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const handleOpenAudio = () => setAudio(true);
+    const handleCloseAudio = () => setAudio(false);
+    const [Audio, setAudio] = React.useState(false);
+
+    const toggleAudioSetting = () => {
+        setUserSettings(prevSettings => ({
+            ...prevSettings,
+            audio: !prevSettings.audio
+        }));
+    };
 
     useEffect(() => {
         const loadTags = () => {
@@ -95,14 +118,28 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
                 >
                     <Box sx={style} >
                     <ChineseCharacter character={word}/>
-                    
+                    </Box>
+                </Modal>
+                <Modal
+                    open={Audio}
+                    onClose={handleCloseAudio}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={styleAudio} >
+                        <FormGroup >
+                        <FormControlLabel
+                            control={<Checkbox checked={userSettings.audio} onChange={toggleAudioSetting} />}
+                            label={<Typography sx={{color:"text.primary"}} variant="p">Turn on audio?</Typography>}
+                        />
+                        </FormGroup>
                     </Box>
                 </Modal>
                     <Box display="flex" alignItems="end">
                             <Typography variant='h2' sx={{ display: "inline", fontFamily: "KaiTi" }}>{word}</Typography>
-                        <Box display="flex" flexDirection="column" alignItems="center" ml={1} height={80}>
+                        <Box display="flex" flexDirection="column" alignItems="center" ml={1} height={80} rowGap={.2}>
                             <IconButton onClick={handleOpen} sx={{width: 40}}><BrushOutlined /></IconButton>
-                            {userSettings.audio && <IconButton aria-label="play audio" onClick={playAudio} sx={{width: 40}}><VolumeUp /></IconButton>}
+                            {userSettings.audio ? <IconButton aria-label="play audio" onClick={playAudio} sx={{width: 40}}><VolumeUp /></IconButton> : <IconButton onClick={handleOpenAudio}  aria-label="audio muted" sx={{width: 40}}><VolumeOff /></IconButton>}
                             <Button onClick={() => setShowAddTagInput(true)} size="small">Add Tag</Button>
                         </Box>
                     </Box>

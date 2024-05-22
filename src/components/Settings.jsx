@@ -5,7 +5,7 @@ import { HexColorPicker } from "react-colorful";
 
 export default function Settings() {
     const { userSettings, setUserSettings } = useContext(SettingsContext);
-    const [color, setColor] = useState(userSettings.color || "#aabbcc");
+    const [color, setColor] = useState(userSettings.color || "#307cff");
 
     const toggleAudioSetting = () => {
         setUserSettings(prevSettings => ({

@@ -99,7 +99,10 @@ function Header({ mode, setMode }) {
           <Typography variant='h6' sx={{display:{xs:"none", sm:"block"}}}>
             TONECHASER
           </Typography>
-          <HomeRounded sx={{display:{xs:"block", sm:"none"}}}/>
+          <Typography variant='h6' sx={{display:{xs:"block", sm:"none"}}}>
+            ToneChaser
+          </Typography>
+          {/* <HomeRounded sx={{display:{xs:"block", sm:"none"}}}/> */}
         </Link>
         {/* <Search
           value={value}
@@ -123,11 +126,11 @@ function Header({ mode, setMode }) {
         <Features>
         {
           mode === "dark" ?
-          <IconButton>
-            <LightMode onClick={e => setMode(mode === "light" ? "dark" : "light")}/>
+          <IconButton onClick={e => setMode(mode === "light" ? "dark" : "light")}>
+            <LightMode />
           </IconButton> :
-          <IconButton>
-            <DarkModeOutlined sx={{ color:"white" }} onClick={e => setMode(mode === "dark" ? "light" : "dark")}/>
+          <IconButton onClick={e => setMode(mode === "dark" ? "light" : "dark")}>
+            <DarkModeOutlined sx={{ color:"white" }} />
           </IconButton>
 
         }
@@ -147,11 +150,11 @@ function Header({ mode, setMode }) {
       <UserBox>
         {
           mode === "dark" ?
-          <IconButton>
-            <LightMode onClick={e => setMode(mode === "light" ? "dark" : "light")}/>
+          <IconButton onClick={e => setMode(mode === "light" ? "dark" : "light")}>
+            <LightMode />
           </IconButton> :
-          <IconButton>
-            <DarkModeOutlined sx={{ color:"white" }} onClick={e => setMode(mode === "dark" ? "light" : "dark")}/>
+          <IconButton onClick={e => setMode(mode === "dark" ? "light" : "dark")}>
+            <DarkModeOutlined sx={{ color:"white" }} />
           </IconButton>
 
         }
