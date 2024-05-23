@@ -55,10 +55,14 @@ function ChineseCharacter({ character }) {
       writer.quiz({
         onComplete: function() {
           if (index < charCount) {
-            const nextHanzi = document.getElementById(`hanzi-container-${index + 1}`);
-          nextHanzi.id = `hanzi-container-${index}`;
-          nextHanzi.style.display = 'inline-block';
-          container.style.display = 'none';
+            setTimeout(() => {
+              const nextHanzi = document.getElementById(`hanzi-container-${index + 1}`);
+              if (nextHanzi) {
+                  nextHanzi.id = `hanzi-container-${index}`;
+                  nextHanzi.style.display = 'inline-block';
+              }
+              container.style.display = 'none';
+          }, 1000);
           } else {
             // container.style.display = 'none';
           }

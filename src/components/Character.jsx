@@ -29,7 +29,7 @@ const style = {
     p: 3,
   };
 
-export default function Character({ word, pinyin, otherPinyin, level, firstTranslation, initialTags }) {
+export default function Character({ word, pinyin, otherPinyin, level, firstTranslation, initialTags, onTagUpdate }) {
     const { userSettings, setUserSettings } = useContext(SettingsContext);
     const [writingMode, setWritingMode] = useState(false);
     const [tags, setTags] = useState(initialTags || []);
@@ -71,6 +71,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
             updateLocalStorage(updatedTags);
             setNewTag('');
             setShowAddTagInput(false); // Hide input field on successful add
+            onTagUpdate(updatedTags);
         }
     };
 
@@ -78,6 +79,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
         const updatedTags = tags.filter(tag => tag !== tagToRemove);
         setTags(updatedTags);
         updateLocalStorage(updatedTags);
+        onTagUpdate(updatedTags);
     };
 
     const updateLocalStorage = (updatedTags) => {
@@ -86,6 +88,8 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
         levelData = levelData.map(item => item.W === word ? {...item, tags: updatedTags} : item);
         localStorage.setItem(levelKey, JSON.stringify(levelData));
     };
+
+    
 
     const playAudio = () => {
         if (userSettings.audio) {
@@ -136,7 +140,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
                     </Box>
                 </Modal>
                     <Box display="flex" alignItems="end">
-                            <Typography variant='h2' sx={{ display: "inline", fontFamily: "KaiTi" }}>{word}</Typography>
+                            <Typography variant='h2' onClick={handleOpen} sx={{ display: "inline", fontFamily: "KaiTi" }}>{word}</Typography>
                         <Box display="flex" flexDirection="column" alignItems="center" ml={1} height={80} rowGap={.2}>
                             <IconButton onClick={handleOpen} sx={{width: 40}}><BrushOutlined /></IconButton>
                             {userSettings.audio ? <IconButton aria-label="play audio" onClick={playAudio} sx={{width: 40}}><VolumeUp /></IconButton> : <IconButton onClick={handleOpenAudio}  aria-label="audio muted" sx={{width: 40}}><VolumeOff /></IconButton>}
