@@ -150,7 +150,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
                     <Typography variant='h5' mb={1}>{pinyin}</Typography>
                     <Divider sx={{ mb: 2 }} />
                     <Typography variant='h6' fontWeight={300} maxWidth={360}>{firstTranslation}</Typography>
-                    <Box sx={{ mt: 1 }}>
+                    <Box sx={{ mt: 1, maxWidth: 320 }}>
                         {tags.map((tag, index) => (
                             <Chip sx={{margin: .4}} key={index} label={tag} onDelete={() => handleRemoveTag(tag)} />
                         ))}

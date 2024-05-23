@@ -147,10 +147,6 @@ useEffect(() => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    
-
-  
-
 const Row = ({ index, style, data }) => {
   const item = data[index];
   const handleClick = () => {
@@ -171,7 +167,7 @@ const Row = ({ index, style, data }) => {
         <>
             <Grid container direction="row" justifyContent="center" spacing={14}>
                 <Grid item>
-                    <Grid container direction="column" justifyContent="center" rowSpacing={{ xs: 1, sm: 3 }} sx={{ width: { xs: "320px", sm: "445px" } }}>
+                    <Grid container direction="column" justifyContent="center" rowSpacing={{ xs: 1, sm: 3 }} sx={{ width: { xs: "320px", sm: "445px" }}}>
                         <Grid item>
                             <TextField
                                 label="Search by Character or Tag" variant="outlined" sx={{ width: { xs: "70%", sm: "95%" } }}
@@ -229,8 +225,9 @@ const Row = ({ index, style, data }) => {
                             </FormControl>
                         </Grid>
                         <Grid item>
-                            <Typography variant="h6" sx={{ mt: 2 }}>Tags:</Typography>
-                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                        
+                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, maxWidth: "370px" }}>
+                            <FormLabel component="legend" sx={{mb: 0, alignSelf: 'center'}}>Tags:</FormLabel>
                                 {allTags.map((tag, index) => (
                                     <Chip
                                         key={index}

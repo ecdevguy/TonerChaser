@@ -4,23 +4,13 @@ import React from 'react'
 export default function Footer() {
   return (
     <Paper sx={{marginTop: 'calc(10% + 60px)',
-      position: 'fixed',
+      position: 'sticky',
       bottom: 0,
       width: '100%'
       }} 
       component="footer" 
       square variant="outlined"><Container maxWidth="lg">
-      {/* <Box
-        sx={{
-          flexGrow: 1,
-          justifyContent: "center",
-          display: "flex",
-          my:1
-        }}
-      >
-        <Typography variant='p'>tocfl learning resource</Typography>
-      </Box> */}
-
+     
       <Box
         sx={{
           flexGrow: 1,

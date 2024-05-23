@@ -6,7 +6,7 @@ import { Box } from "@mui/material";
 
 export default function Layout({ mode, setMode}) {
   return (
-    <Box bgcolor={"background.default"} color={"text.primary"} minHeight={"100vh"}>
+    <Box bgcolor={"background.default"} color={"text.primary"} minHeight={"100vh"} >
       <Header mode={mode} setMode={setMode}/>
       <main>
         <Outlet />
