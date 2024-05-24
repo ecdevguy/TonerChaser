@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import Study from './components/Study'
 import Challenge from './components/Challenge'
 import List from './components/List'
@@ -62,7 +62,7 @@ export default function App() {
   
   return (
     <ThemeProvider theme={darkTheme}>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<Layout mode={userSettings.darkMode} setMode={toggleDarkModeSetting}/>}>
             {/* <Route index element={<Homescreen />} /> */}
@@ -72,7 +72,7 @@ export default function App() {
             <Route  path="settings" element={<Settings />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
     )
 }
