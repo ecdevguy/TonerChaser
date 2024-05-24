@@ -62,7 +62,7 @@ export default function App() {
   
   return (
     <ThemeProvider theme={darkTheme}>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/" element={<Layout mode={userSettings.darkMode} setMode={toggleDarkModeSetting}/>}>
             {/* <Route index element={<Homescreen />} /> */}
