@@ -66,7 +66,7 @@ export default function App() {
         <Routes>
           <Route exact path="/" element={<Layout mode={userSettings.darkMode} setMode={toggleDarkModeSetting}/>}>
             {/* <Route index element={<Homescreen />} /> */}
-            <Route exact index element={<Study fetchTocfl={fetchVocabData} loading={loading}/>} />
+            <Route  index element={<Study fetchTocfl={fetchVocabData} loading={loading}/>} />
             <Route exact path="challenge" element={<Challenge />} />
             <Route exact path="search" element={<List fetchTocfl={fetchVocabData} loading={loading}/>} />
             <Route exact path="settings" element={<Settings />} />
