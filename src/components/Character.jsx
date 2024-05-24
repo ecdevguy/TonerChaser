@@ -39,9 +39,9 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const handleOpenAudio = () => setAudio(true);
-    const handleCloseAudio = () => setAudio(false);
-    const [Audio, setAudio] = React.useState(false);
+    const handleOpenAudio = () => setAudioPlayback(true);
+    const handleCloseAudio = () => setAudioPlayback(false);
+    const [audioPlayback, setAudioPlayback] = React.useState(false);
     const [value, setValue] = React.useState(null);
 
     const toggleAudioSetting = () => {
@@ -99,7 +99,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
 
     const playAudio = () => {
         if (userSettings.audio) {
-            fetch(`https://pinyin-word-api.vercel.app/api/audio/${word}`)
+            fetch(`https://pinyin-word-api.vercel.app/api/audio/pod/${word}`)
                 .then(response => response.blob())
                 .then(blob => {
                     const audioUrl = URL.createObjectURL(blob);
@@ -131,7 +131,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
                         </Box>
                     </Modal>
                 <Modal
-                    open={Audio}
+                    open={audioPlayback}
                     onClose={handleCloseAudio}
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
