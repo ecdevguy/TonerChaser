@@ -4,7 +4,7 @@ import Study from './components/Study'
 import Challenge from './components/Challenge'
 import List from './components/List'
 import Settings from './components/Settings'
-import Homescreen from './components/Homescreen'
+// import Homescreen from './components/Homescreen'
 import Layout from './components/Layout'
 import SettingsContext from './context/settingsContext';
 import db from './firebase';
@@ -65,10 +65,10 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout mode={userSettings.darkMode} setMode={toggleDarkModeSetting}/>}>
-            <Route index element={<Homescreen />} />
-            <Route path="study" element={<Study fetchTocfl={fetchVocabData} loading={loading}/>} />
+            {/* <Route index element={<Homescreen />} /> */}
+            <Route index element={<Study fetchTocfl={fetchVocabData} loading={loading}/>} />
             <Route path="challenge" element={<Challenge />} />
-            <Route path="list" element={<List fetchTocfl={fetchVocabData} loading={loading}/>} />
+            <Route path="search" element={<List fetchTocfl={fetchVocabData} loading={loading}/>} />
             <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>

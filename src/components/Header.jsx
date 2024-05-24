@@ -134,13 +134,13 @@ function Header({ mode, setMode }) {
           </IconButton>
 
         }
-          <Link component={RouterLink} underline="none" to="study" color="inherit">
+          <Link component={RouterLink} underline="none" to="/" color="inherit">
             <Typography>Study</Typography>
           </Link>
           {/* <Link component={RouterLink} underline="none" to="challenge" color="inherit" >
             <Typography>Challenge</Typography>
           </Link> */}
-          <Link component={RouterLink} underline="none" to="list" color="inherit">
+          <Link component={RouterLink} underline="none" to="search" color="inherit">
             <Typography>Search</Typography>
           </Link>
           <Link component={RouterLink} underline="none" to="settings" color="inherit">
@@ -174,7 +174,7 @@ function Header({ mode, setMode }) {
           }}
         >
           <MenuItem >
-            <Link component={RouterLink} underline="none" to="study" color="inherit" onClick={handleClose}>
+            <Link component={RouterLink} underline="none" to="/" color="inherit" onClick={handleClose}>
               <Typography>
                 Study
               </Typography>
@@ -188,7 +188,7 @@ function Header({ mode, setMode }) {
             </Link>
           </MenuItem> */}
           <MenuItem >
-            <Link component={RouterLink} underline="none" to="list" color="inherit" onClick={handleClose}>
+            <Link component={RouterLink} underline="none" to="search" color="inherit" onClick={handleClose}>
               <Typography>
                 Search
               </Typography>
