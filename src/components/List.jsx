@@ -32,15 +32,14 @@ export default function List({ fetchTocfl, loading }) {
     const handleTagClick = (tag) => {
         setSelectedTags(prev => {
             if (prev.includes(tag)) {
-                return prev.filter(t => t !== tag); // Deselect tag
+                return prev.filter(t => t !== tag);
             } else {
-                return [...prev, tag]; // Select tag
+                return [...prev, tag];
             }
         });
     };
 
     const handleTagUpdate = (word, newTags) => {
-        // Update the list with the new tags for the specified character
         const updatedList = unfilteredList.map(item => {
             if (item.W === word) {
                 return { ...item, tags: newTags };
@@ -48,15 +47,9 @@ export default function List({ fetchTocfl, loading }) {
             return item;
         });
         setUnfilteredList(updatedList);
-    
-        // Creating a new set for all tags currently in use after the update
         const tagsInUse = new Set();
         updatedList.forEach(item => item.tags.forEach(tag => tagsInUse.add(tag)));
-    
-        // Update the allTags to only include tags that are still in use
         setAllTags([...tagsInUse]);
-    
-        // Optionally, update selectedTags to remove any tags that are no longer in use
         setSelectedTags(prev => prev.filter(tag => tagsInUse.has(tag)));
     };
     
@@ -234,7 +227,7 @@ const Row = ({ index, style, data }) => {
                                         label={tag}
                                         variant="outlined"
                                         onClick={() => handleTagClick(tag)}
-                                        color={selectedTags.includes(tag) ? 'primary' : 'default'} // Highlight if selected
+                                        color={selectedTags.includes(tag) ? 'primary' : 'default'}
                                     />
                                 ))}
                             </Box>

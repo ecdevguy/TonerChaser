@@ -9,20 +9,16 @@ function ChineseCharacter({ character }) {
 
   let charCount = 0;
   useEffect(() => {
-    // Cleanup function to handle the destruction of HanziWriter instances and their containers properly
     const cleanupWriters = () => {
       if (containerRef.current) {
-        // Handle each child container safely
         Array.from(containerRef.current.children).forEach(child => {
           try {
-            // Safely attempt to destroy the writer if it exists
             if (child.writer) {
               () => child.writer.destroy();
             }
           } catch (error) {
             console.error("Failed to destroy the writer:", error);
           } finally {
-            // Always remove the child from the DOM
             if (containerRef.current) {
               containerRef.current.removeChild(child);
             }
@@ -31,13 +27,11 @@ function ChineseCharacter({ character }) {
       }
     };
 
-    // If no character is provided, clean up existing writers and containers
     if (!character) {
       cleanupWriters();
       return;
     }
 
-    // Split the character string and create a new writer for each character
     character.split('').forEach((char, index) => {
       const container = document.createElement('div');
       container.id = `hanzi-container-${index}`;
@@ -68,12 +62,8 @@ function ChineseCharacter({ character }) {
           }
         }
       });
-
-      // Store the writer reference for later cleanup
       container.writer = writer;
     });
-
-    // Return the cleanup function to be called on component unmount or when character changes
     return cleanupWriters;
   }, [character]);
   const num1 = 200;

@@ -64,9 +64,9 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
     }, [word, level]);
 
     const handleAddClick = () => {
-        if (newTag) {  // Only add if there is something to add
+        if (newTag) {
             onAddTag(newTag);
-            setNewTag('');  // Clear input after adding
+            setNewTag('');
         }
     };
 
@@ -76,7 +76,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
             setTags(updatedTags);
             updateLocalStorage(updatedTags);
             setNewTag('');
-            setShowAddTagInput(false); // Hide input field on successful add
+            setShowAddTagInput(false);
             onTagUpdate(updatedTags);
         }
     };
@@ -111,8 +111,8 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
     };
 
     const handleCancel = () => {
-        setShowAddTagInput(false); // Hide the input box
-        setNewTag(''); // Clear any input
+        setShowAddTagInput(false);
+        setNewTag('');
     };
     
 
