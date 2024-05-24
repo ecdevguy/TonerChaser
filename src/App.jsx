@@ -64,12 +64,12 @@ export default function App() {
     <ThemeProvider theme={darkTheme}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout mode={userSettings.darkMode} setMode={toggleDarkModeSetting}/>}>
+          <Route exact path="/" element={<Layout mode={userSettings.darkMode} setMode={toggleDarkModeSetting}/>}>
             {/* <Route index element={<Homescreen />} /> */}
-            <Route index element={<Study fetchTocfl={fetchVocabData} loading={loading}/>} />
-            <Route path="challenge" element={<Challenge />} />
-            <Route path="search" element={<List fetchTocfl={fetchVocabData} loading={loading}/>} />
-            <Route path="settings" element={<Settings />} />
+            <Route exact index element={<Study fetchTocfl={fetchVocabData} loading={loading}/>} />
+            <Route exact path="challenge" element={<Challenge />} />
+            <Route exact path="search" element={<List fetchTocfl={fetchVocabData} loading={loading}/>} />
+            <Route exact path="settings" element={<Settings />} />
           </Route>
         </Routes>
       </BrowserRouter>
