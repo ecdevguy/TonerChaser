@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import SettingsContext from '../context/settingsContext';
-import { Box, Button, Card, CardContent, Divider, IconButton, TextField, Typography, Chip, ButtonGroup, Container, Modal, Checkbox, FormControlLabel, FormGroup } from '@mui/material';
+import { Box, Button, Card, CardContent, Divider, IconButton, TextField, Typography, Chip, ButtonGroup, Container, Modal, Checkbox, FormControlLabel, FormGroup, Autocomplete } from '@mui/material';
 import { BrushOutlined, EditOff, VolumeUp, Close, VolumeOff } from '@mui/icons-material';
 import ChineseCharacter from './ChineseCharacter';
 
@@ -15,6 +15,7 @@ const style = {
     border: '1px solid #969696',
     boxShadow: 24,
     p: 0,
+    
   };
 
   const styleAudio = {
@@ -29,7 +30,7 @@ const style = {
     p: 3,
   };
 
-export default function Character({ word, pinyin, otherPinyin, level, firstTranslation, initialTags, onTagUpdate }) {
+export default function Character({ word, pinyin, otherPinyin, level, firstTranslation, initialTags, onTagUpdate, tagsList }) {
     const { userSettings, setUserSettings } = useContext(SettingsContext);
     const [writingMode, setWritingMode] = useState(false);
     const [tags, setTags] = useState(initialTags || []);
@@ -41,6 +42,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
     const handleOpenAudio = () => setAudio(true);
     const handleCloseAudio = () => setAudio(false);
     const [Audio, setAudio] = React.useState(false);
+    const [value, setValue] = React.useState(null);
 
     const toggleAudioSetting = () => {
         setUserSettings(prevSettings => ({
@@ -61,8 +63,12 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
         loadTags();
     }, [word, level]);
 
-    const handleWritingModeOn = () => setWritingMode(true);
-    const handleWritingModeOff = () => setWritingMode(false);
+    const handleAddClick = () => {
+        if (newTag) {  // Only add if there is something to add
+            onAddTag(newTag);
+            setNewTag('');  // Clear input after adding
+        }
+    };
 
     const handleAddTag = () => {
         if (newTag.trim() && !tags.includes(newTag.trim())) {
@@ -114,16 +120,16 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
         <Box>
             <Card sx={{ minWidth: 360, minHeight: 360, p: 1 }}>
                 <CardContent>
-                <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box sx={style} >
-                    <ChineseCharacter character={word}/>
-                    </Box>
-                </Modal>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style} >
+                            <ChineseCharacter character={word}/>
+                        </Box>
+                    </Modal>
                 <Modal
                     open={Audio}
                     onClose={handleCloseAudio}
@@ -132,40 +138,88 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
                 >
                     <Box sx={styleAudio} >
                         <FormGroup >
-                        <FormControlLabel
-                            control={<Checkbox checked={userSettings.audio} onChange={toggleAudioSetting} />}
-                            label={<Typography sx={{color:"text.primary"}} variant="p">Turn on audio?</Typography>}
-                        />
+                            <FormControlLabel
+                                control={<Checkbox checked={userSettings.audio} onChange={toggleAudioSetting} />}
+                                label={<Typography sx={{color:"text.primary"}} variant="p">Turn on audio?</Typography>}
+                            />
                         </FormGroup>
                     </Box>
                 </Modal>
                     <Box display="flex" alignItems="end">
-                            <Typography variant='h2' onClick={handleOpen} sx={{ display: "inline", fontFamily: "KaiTi" }}>{word}</Typography>
+
+                            <Typography variant='h2' onClick={handleOpen} sx={{ display: "inline", fontFamily: "KaiTi" }}>
+                                {word}
+                            </Typography>
+
                         <Box display="flex" flexDirection="column" alignItems="center" ml={1} height={80} rowGap={.2}>
-                            <IconButton onClick={handleOpen} sx={{width: 40}}><BrushOutlined /></IconButton>
-                            {userSettings.audio ? <IconButton aria-label="play audio" onClick={playAudio} sx={{width: 40}}><VolumeUp /></IconButton> : <IconButton onClick={handleOpenAudio}  aria-label="audio muted" sx={{width: 40}}><VolumeOff /></IconButton>}
-                            <Button onClick={() => setShowAddTagInput(true)} size="small">Add Tag</Button>
+                            
+                            <IconButton onClick={handleOpen} sx={{width: 40}}>
+                                <BrushOutlined />
+                            </IconButton>
+
+                            {userSettings.audio ? 
+                            <IconButton aria-label="play audio" onClick={playAudio} sx={{width: 40}}>
+                                <VolumeUp />
+                            </IconButton> : 
+                            <IconButton onClick={handleOpenAudio}  aria-label="audio muted" sx={{width: 40}}>
+                                <VolumeOff />
+                            </IconButton>}
+
+                            <Button onClick={() => setShowAddTagInput(true)} size="small">
+                                Add Tag
+                            </Button>
                         </Box>
                     </Box>
-                    <Typography variant='h5' mb={1}>{pinyin}</Typography>
+                    <Typography variant='h5' mb={1}>
+                        {pinyin}
+                    </Typography>
+
                     <Divider sx={{ mb: 2 }} />
-                    <Typography variant='h6' fontWeight={300} maxWidth={360}>{firstTranslation}</Typography>
+
+                    <Typography variant='h6' fontWeight={300} maxWidth={360} marginBottom={3}>
+                        {firstTranslation}
+                    </Typography>
+
                     <Box sx={{ mt: 1, maxWidth: 320 }}>
                         {tags.map((tag, index) => (
                             <Chip sx={{margin: .4}} key={index} label={tag} onDelete={() => handleRemoveTag(tag)} />
                         ))}
                         {showAddTagInput && (
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
-                                <TextField
-                                    value={newTag}
-                                    onChange={(e) => setNewTag(e.target.value)}
-                                    placeholder="Add a new tag"
-                                    size="small"
-                                    variant="outlined"
-                                    
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2 }}>
+                                
+                                
+                                <Autocomplete
+                                    id="tag-picker"
+                                    freeSolo
+                                    sx={{width:"200px"}}
+                                    options={tagsList ? tagsList : ['']}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params} 
+                                            placeholder="search or add..."
+                                            label="Add a Tag"
+                                            size="small"
+                                            variant="outlined"
+                                        />
+                                    )}
+                                    onInputChange={(event, newValue) => {
+                                        setNewTag(newValue);
+                                    }}
+                                    onChange={(event, newValue) => {
+                                        if (typeof newValue === 'string') {
+                                            setNewTag(newValue);
+                                        } else if (newValue && newValue.inputValue) {
+                                            setNewTag(newValue.inputValue);
+                                        } else {
+                                            setNewTag(newValue || '');
+                                        }
+                                    }}
                                 />
                                 <ButtonGroup variant="text">
-                                    <Button onClick={handleAddTag} size="small">
+                                    <Button onClick={() => {
+                                        handleAddTag(newTag);
+                                        setNewTag('');
+                                    }} size="small">
                                         Save
                                     </Button>
                                     <Button onClick={handleCancel} size="small">

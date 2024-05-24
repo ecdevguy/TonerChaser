@@ -4,7 +4,7 @@ import React from 'react'
 export default function Footer() {
   return (
     <Paper sx={{marginTop: 'calc(10% + 60px)',
-      position: 'sticky',
+      position: 'fixed',
       bottom: 0,
       width: '100%'
       }} 
@@ -16,7 +16,7 @@ export default function Footer() {
           flexGrow: 1,
           justifyContent: "center",
           display: "flex",
-          m: 1,
+          m: 0.5,
         }}
       >
         <Typography variant="caption" color={"text.primary"}>

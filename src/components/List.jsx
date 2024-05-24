@@ -262,6 +262,7 @@ const Row = ({ index, style, data }) => {
                         firstTranslation={item.T}
                         audio={true}
                         initialTags={item?.tags}
+                        tagsList={allTags}
                         onTagUpdate={(newTags) => handleTagUpdate(item.W, newTags)}
                     />}
                 </Grid>}
@@ -282,6 +283,7 @@ const Row = ({ index, style, data }) => {
                         firstTranslation={item.T}
                         audio={true}
                         initialTags={item?.tags}
+                        tagsList={allTags}
                         onTagUpdate={(newTags) => handleTagUpdate(item.W, newTags)}
                     />}
                 </Box>
