@@ -146,6 +146,12 @@ function Header({ mode, setMode }) {
           <Link component={RouterLink} underline="none" to="settings" color="inherit">
             Settings
           </Link>
+          <Link component={RouterLink} underline="none" to="signup" color="inherit">
+            Sign Up
+          </Link>
+          <Link component={RouterLink} underline="none" to="signin" color="inherit">
+            Sign In
+          </Link>
         </Features>
       <UserBox>
         {

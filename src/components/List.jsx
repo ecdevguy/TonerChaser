@@ -166,6 +166,7 @@ const Row = ({ index, style, data }) => {
                                 label="Search by Character or Tag" variant="outlined" sx={{ width: { xs: "70%", sm: "95%" } }}
                                 onChange={(e) => handleFilterChange(e.target.value)}
                                 placeholder="輸入......"
+                                autoFocus
                             />
                         </Grid>
                         <Grid item>

@@ -6,6 +6,8 @@ import List from './components/List'
 import Settings from './components/Settings'
 // import Homescreen from './components/Homescreen'
 import Layout from './components/Layout'
+import SignUp from './components/SignUp'
+import SignIn from './components/SignIn'
 import SettingsContext from './context/settingsContext';
 import db from './firebase';
 import { doc, getDoc } from "firebase/firestore";
@@ -70,6 +72,8 @@ export default function App() {
             <Route  path="challenge" element={<Challenge />} />
             <Route  path="search" element={<List fetchTocfl={fetchVocabData} loading={loading}/>} />
             <Route  path="settings" element={<Settings />} />
+            <Route  path="signup" element={<SignUp />} />
+            <Route  path="signin" element={<SignIn />} />
           </Route>
         </Routes>
       </HashRouter>
