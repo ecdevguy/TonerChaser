@@ -11,28 +11,34 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import createTheme from '@mui/material/styles/createTheme';
-import ThemeProvider from '@mui/material/styles/ThemeProvider';
-import { Link as RouterLink } from 'react-router-dom'
 
-
-
-// TODO remove, this demo shouldn't need to reset the theme.
-
-const defaultTheme = createTheme();
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase';
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, data.get('email'), data.get('password'));
+      console.log(userCredential);
+      const user = userCredential.user;
+      localStorage.setItem('token', user.accessToken);
+      localStorage.setItem('user', JSON.stringify(user));
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
   };
 
-  return (
-    <ThemeProvider theme={defaultTheme}>
+  return (  
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -43,13 +49,13 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }} >
             <TextField
               margin="normal"
               required
@@ -97,6 +103,5 @@ export default function SignIn() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
   );
 }

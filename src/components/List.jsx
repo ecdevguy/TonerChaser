@@ -141,16 +141,16 @@ useEffect(() => {
     const handleClose = () => setOpen(false);
 
 const Row = ({ index, style, data }) => {
-  const item = data[index];
+  const itemData = data[index];
   const handleClick = () => {
-      setItem(item);
+      setItem(itemData);
       handleOpen();
   };
       return (
-          <ListItemButton style={style} onClick={handleClick}>
+          <ListItemButton style={style} onClick={handleClick} selected={itemData?.W === item?.W}>
               <ListCharacter
-                  word={item.W}
-                  firstTranslation={item.T}
+                  word={itemData.W}
+                  firstTranslation={itemData.T}
               />
           </ListItemButton>
       );
@@ -167,6 +167,7 @@ const Row = ({ index, style, data }) => {
                                 onChange={(e) => handleFilterChange(e.target.value)}
                                 placeholder="輸入......"
                                 autoFocus
+                                margin="normal"
                             />
                         </Grid>
                         <Grid item>

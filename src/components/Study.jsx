@@ -58,6 +58,8 @@ export default function Study({ fetchTocfl, loading }) {
     setIndex(prevIndex => (prevIndex - 1 + vocab.length) % vocab.length);
   };
 
+  
+
   const handleLevelChange = async (event) => {
     const newLevel = event.target.value;
     await fetchTocfl(newLevel, (err) => {

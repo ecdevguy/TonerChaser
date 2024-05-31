@@ -71,13 +71,13 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
     };
 
     const handleAddTag = () => {
-        if (newTag.trim() && !tags.includes(newTag.trim())) {
+        if (newTag.trim() && !tags.includes(newTag.trim()) ) {
             const updatedTags = [...tags, newTag.trim()];
             setTags(updatedTags);
             updateLocalStorage(updatedTags);
             setNewTag('');
             setShowAddTagInput(false);
-            onTagUpdate(updatedTags);
+            onTagUpdate(updatedTags); 
         }
     };
 

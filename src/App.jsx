@@ -9,7 +9,7 @@ import Layout from './components/Layout'
 import SignUp from './components/SignUp'
 import SignIn from './components/SignIn'
 import SettingsContext from './context/settingsContext';
-import db from './firebase';
+import { db } from './firebase';
 import { doc, getDoc } from "firebase/firestore";
 import './App.css'
 import { ThemeProvider, createTheme } from '@mui/material'

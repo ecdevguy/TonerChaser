@@ -1,7 +1,9 @@
-import React from 'react'
-import { Link as RouterLink } from 'react-router-dom'
-import { AppBar, Autocomplete, Box, Button, IconButton, InputBase, Link, Menu, MenuItem, Modal, TextField, Toolbar, Typography, styled } from '@mui/material'
+import React, { useEffect } from 'react'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import { AppBar, Autocomplete, Avatar, Box, Button, Divider, IconButton, InputBase, Link, Menu, MenuItem, Modal, TextField, Toolbar, Typography, styled } from '@mui/material'
 import { DarkMode, DarkModeOutlined, HomeRounded, LightMode, MenuRounded, SettingsRounded } from '@mui/icons-material'
+import { signOut } from 'firebase/auth'
+import { auth } from '../firebase'
 
 const StyledToolbar = styled(Toolbar) ({
   display:"flex",
@@ -19,7 +21,7 @@ const Search = styled(Autocomplete)(({theme})=>({
 
 const Features = styled(Box)(({theme})=>({
   display:"none",
-  gap:"20px",
+  gap:"30px",
   alignItems:"center",
 
   [theme.breakpoints.up("sm")]:{
@@ -32,6 +34,13 @@ const UserBox = styled(Box)(({theme})=>({
     display:"none"
   }
 }))
+
+const MenuFeatures = styled(Box)(({theme})=>({
+  [theme.breakpoints.up("sm")]:{
+    display:"none"
+  }
+}))
+
 
 const style = {
   position: 'absolute',
@@ -46,50 +55,32 @@ const style = {
 };
 
 function Header({ mode, setMode }) {
-  const [value, setValue] = React.useState();
-  const [inputValue, setInputValue] = React.useState('');
-
-
-  // function cleanData(item) {
-  //   return {
-  //     ...item,
-  //     "First Translation": typeof item["First Translation"] === 'string' ? item["First Translation"] : ''
-  //   };
-  // }
-  
-  // // const unfilteredList = [
-  // //   ...JSON.parse(localStorage.getItem("TOCFL1")).map(cleanData), 
-  // //   ...JSON.parse(localStorage.getItem("TOCFL2")).map(cleanData),
-  // //   ...JSON.parse(localStorage.getItem("TOCFL3")).map(cleanData),
-  // //   ...JSON.parse(localStorage.getItem("TOCFL4")).map(cleanData),
-  // //   ...JSON.parse(localStorage.getItem("TOCFL5")).map(cleanData),
-  // //   ...JSON.parse(localStorage.getItem("TOCFL6")).map(cleanData),
-  // //   ...JSON.parse(localStorage.getItem("TOCFL7")).map(cleanData)
-  // // ];
-
-  // const options = unfilteredList.map((option) => {
-  //   const characterLevel = option.Level;
-  
-  //   let levelDescription;
-  //   if (/[1-7]/.test(characterLevel)) {
-  //     levelDescription = `Level ${characterLevel}`;
-  //   } else {
-  //     levelDescription = characterLevel;
-  //   }
-  
-  //   return {
-  //     characterLevel: levelDescription,
-  //     ...option,
-  //   };
-  // });
-  
+  const user = JSON.parse(localStorage.getItem('user'));
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  useEffect(() => {
+    const handleResize = () => {
+      setAnchorEl(null);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleLogOut = async () => {
+    await signOut(auth);
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate("/signin")
+    handleClose();
   };
   return (
     <AppBar position="sticky" sx={{marginBottom:"30px"}}>
@@ -102,58 +93,36 @@ function Header({ mode, setMode }) {
           <Typography variant='h6' sx={{display:{xs:"block", sm:"none"}}}>
             ToneChaser
           </Typography>
-          {/* <HomeRounded sx={{display:{xs:"block", sm:"none"}}}/> */}
+          
         </Link>
-        {/* <Search
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-          inputValue={inputValue}
-          onInputChange={(event, newInputValue) => {
-            setInputValue(newInputValue);
-          }}
-          id="grouped-demo"
-          selectOnFocus
-          clearOnBlur
-          handleHomeEndKeys
-          options={options.sort((a, b) => -b.characterLevel.localeCompare(a.characterLevel))}
-          groupBy={(option) => option.characterLevel}
-          getOptionLabel={(option) => option.Word}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} placeholder="Search..." />}
-        /> */}
         <Features>
-        {
-          mode === "dark" ?
-          <IconButton onClick={e => setMode(mode === "light" ? "dark" : "light")}>
-            <LightMode />
-          </IconButton> :
-          <IconButton onClick={e => setMode(mode === "dark" ? "light" : "dark")}>
-            <DarkModeOutlined sx={{ color:"white" }} />
-          </IconButton>
-
-        }
+        
           <Link component={RouterLink} underline="none" to="/" color="inherit">
             <Typography>Study</Typography>
           </Link>
           {/* <Link component={RouterLink} underline="none" to="challenge" color="inherit" >
             <Typography>Challenge</Typography>
           </Link> */}
+          
           <Link component={RouterLink} underline="none" to="search" color="inherit">
             <Typography>Search</Typography>
           </Link>
-          <Link component={RouterLink} underline="none" to="settings" color="inherit">
-            Settings
-          </Link>
-          <Link component={RouterLink} underline="none" to="signup" color="inherit">
-            Sign Up
-          </Link>
-          <Link component={RouterLink} underline="none" to="signin" color="inherit">
-            Sign In
-          </Link>
+          <Box sx={{display: "flex", gap: "10px"}}>
+          {!user && 
+            <Button color="inherit" variant="outlined">
+              <Link component={RouterLink} underline="none" to="signin" color="inherit">
+                Log In
+              </Link>
+            </Button>}
+          {!user && 
+            <Button color="inherit" variant="contained">
+              <Link component={RouterLink} underline="none" to="signup" >
+              Sign Up
+              </Link>
+            </Button>}
+            </Box>
         </Features>
-      <UserBox>
+      <Box>
         {
           mode === "dark" ?
           <IconButton onClick={e => setMode(mode === "light" ? "dark" : "light")}>
@@ -162,7 +131,6 @@ function Header({ mode, setMode }) {
           <IconButton onClick={e => setMode(mode === "dark" ? "light" : "dark")}>
             <DarkModeOutlined sx={{ color:"white" }} />
           </IconButton>
-
         }
         <Button
           id="basic-button"
@@ -172,14 +140,15 @@ function Header({ mode, setMode }) {
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
         >
-          <MenuRounded />
+          {user ? <Avatar /> : <MenuRounded />}
         </Button>
         <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose} 
         MenuListProps={{
           'aria-labelledby': 'basic-button',
           }}
         >
-          <MenuItem >
+          <MenuFeatures>
+          <MenuItem>
             <Link component={RouterLink} underline="none" to="/" color="inherit" onClick={handleClose}>
               <Typography>
                 Study
@@ -200,15 +169,27 @@ function Header({ mode, setMode }) {
               </Typography>
             </Link>
           </MenuItem>
-          <MenuItem >
+          </MenuFeatures>
+          <MenuItem>
             <Link component={RouterLink} underline="none" to="settings" color="inherit" onClick={handleClose}>
               <Typography>
                 Settings
               </Typography>
             </Link>
           </MenuItem>
+          {user ? <MenuItem onClick={handleLogOut}>
+              <Typography>
+                Log Out
+              </Typography>
+          </MenuItem> : <MenuItem>
+            <Link component={RouterLink} underline="none" to="/signin" color="inherit" onClick={handleClose}>
+              <Typography>
+                Sign In
+              </Typography>
+            </Link>
+          </MenuItem>}
         </Menu>
-      </UserBox>
+      </Box>
       </StyledToolbar>
     </AppBar>
     
