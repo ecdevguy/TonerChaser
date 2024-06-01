@@ -74,8 +74,6 @@ const handleTagUpdate = (word, newTags) => {
   React.useEffect(() => {
     if (vocab.length > 0) {
       setIndex(0);
-    } else {
-      setIndex(-1);
     }
   }, [userSettings.TOCFL1, userSettings.TOCFL2, userSettings.TOCFL3, userSettings.TOCFL4, userSettings.TOCFL5, userSettings.TOCFL6, userSettings.TOCFL7]);
 
