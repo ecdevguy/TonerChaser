@@ -77,7 +77,9 @@ const handleTagUpdate = (word, newTags) => {
     } else {
       setIndex(-1);
     }
-  }, [userSettings]);
+  }, [userSettings.TOCFL1, userSettings.TOCFL2, userSettings.TOCFL3, userSettings.TOCFL4, userSettings.TOCFL5, userSettings.TOCFL6, userSettings.TOCFL7]);
+
+
   
 
   const increaseIndex = () => {
@@ -111,6 +113,7 @@ const handleTagUpdate = (word, newTags) => {
         TOCFL7: newLevel === 'TOCFL7'
         })
       );
+      
 };
 React.useEffect(() => {
   fetchTocfl("TOCFL1")
