@@ -32,10 +32,23 @@ export default function Study({ fetchTocfl, loading }) {
       vocabList = JSON.parse(storedVocab).map(cleanData);
       vocabList.forEach(item => item.tags && item.tags.forEach(tag => allLoadedTags.add(tag)));
     }
-    
-
     setVocab(vocabList);
-    setAllTags([...allLoadedTags]);
+
+    if (
+      localStorage.getItem("TOCFL1") && localStorage.getItem("TOCFL2") && localStorage.getItem("TOCFL3") && localStorage.getItem("TOCFL4") && localStorage.getItem("TOCFL5") && localStorage.getItem("TOCFL6") && localStorage.getItem("TOCFL7")
+  ) {
+      const data = [
+          ...JSON.parse(localStorage.getItem("TOCFL1")).map(cleanData), 
+          ...JSON.parse(localStorage.getItem("TOCFL2")).map(cleanData),
+          ...JSON.parse(localStorage.getItem("TOCFL3")).map(cleanData),
+          ...JSON.parse(localStorage.getItem("TOCFL4")).map(cleanData),
+          ...JSON.parse(localStorage.getItem("TOCFL5")).map(cleanData),
+          ...JSON.parse(localStorage.getItem("TOCFL6")).map(cleanData),
+          ...JSON.parse(localStorage.getItem("TOCFL7")).map(cleanData)
+      ];
+      data.forEach(item => item.tags && item.tags.forEach(tag => allLoadedTags.add(tag)));
+      setAllTags([...allLoadedTags]); 
+  }
 }, [userSettings, loading]);
 
 const handleTagUpdate = (word, newTags) => {
