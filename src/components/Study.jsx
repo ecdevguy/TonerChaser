@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import Character from './Character'
 import SettingsContext from '../context/settingsContext';
-import { Box, Button, ButtonGroup, FormControl, FormControlLabel, FormGroup, FormLabel, Radio, RadioGroup } from '@mui/material';
+import { Box, Button, ButtonGroup, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
 
 
 

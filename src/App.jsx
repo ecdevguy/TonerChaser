@@ -1,10 +1,9 @@
-import React, {useEffect, useState, useContext} from 'react'
+import React, { useState, useContext } from 'react'
 import { HashRouter, Routes, Route } from 'react-router-dom'
 import Study from './components/Study'
 import Challenge from './components/Challenge'
 import List from './components/List'
 import Settings from './components/Settings'
-// import Homescreen from './components/Homescreen'
 import Layout from './components/Layout'
 import SignUp from './components/SignUp'
 import SignIn from './components/SignIn'
@@ -42,10 +41,10 @@ export default function App() {
     else {
       console.log(`Fetching data for ${levelKey} from Firestore`);
       setLoading(true);
-      const docRef = doc(db, "VocabLevels", levelKey);  // Adjust path to match your Firestore setup
+      const docRef = doc(db, "VocabLevels", levelKey);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        const data = docSnap.data().vocabItems;  // Assuming 'vocabItems' holds the array of vocab
+        const data = docSnap.data().vocabItems;
         localStorage.setItem(levelKey, JSON.stringify(data));
         localStorage.setItem(`${levelKey}_timestamp`, Date.now().toString());
       } 
