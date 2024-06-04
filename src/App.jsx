@@ -30,8 +30,8 @@ export default function App() {
     }
   })
   
-  const expiryDuration = 24 * 60 * 60 * 1000; // 24 hours
-  const [loading, setLoading] = React.useState(false);
+  const expiryDuration = 24 * 60 * 60 * 1000;
+  const [loading, setLoading] = useState(false);
   const fetchVocabData = async (levelKey) => {
     const cachedData = localStorage.getItem(levelKey);
     const lastFetch = localStorage.getItem(`${levelKey}_timestamp`);
@@ -48,19 +48,13 @@ export default function App() {
         const data = docSnap.data().vocabItems;  // Assuming 'vocabItems' holds the array of vocab
         localStorage.setItem(levelKey, JSON.stringify(data));
         localStorage.setItem(`${levelKey}_timestamp`, Date.now().toString());
-
       } 
       else {
-          console.log("No such document!");
+          console.log("Could not locate data in database.");
       }
       setLoading(false);
     }
-  }
-  // React.useEffect(() => {
-  //   fetchVocabData("TOCFL1")
-  // }, []);
-  
-  
+  } 
   
   return (
     <ThemeProvider theme={darkTheme}>
