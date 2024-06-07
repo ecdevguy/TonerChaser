@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { HashRouter, Routes, Route } from 'react-router-dom'
 import Study from './components/Study'
 import Challenge from './components/Challenge'
@@ -30,7 +30,9 @@ export default function App() {
   })
   
   const expiryDuration = 24 * 60 * 60 * 1000;
+  
   const [loading, setLoading] = useState(false);
+
   const fetchVocabData = async (levelKey) => {
     const cachedData = localStorage.getItem(levelKey);
     const lastFetch = localStorage.getItem(`${levelKey}_timestamp`);
@@ -54,6 +56,11 @@ export default function App() {
       setLoading(false);
     }
   } 
+  useEffect(() => {
+    [1, 2, 3, 4, 5, 6, 7].map((num) => {
+        fetchVocabData(`TOCFL${num}`);
+    })
+}, []);
   
   return (
     <ThemeProvider theme={darkTheme}>

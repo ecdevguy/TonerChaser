@@ -81,17 +81,17 @@ const handleTagUpdate = (word, newTags) => {
     }
   }, [userSettings.TOCFL1, userSettings.TOCFL2, userSettings.TOCFL3, userSettings.TOCFL4, userSettings.TOCFL5, userSettings.TOCFL6, userSettings.TOCFL7]);
 
-  const handleLevelChange = async (event) => {
+  const handleLevelChange = (event) => {
     const newLevel = event.target.value;
-    await fetchTocfl(newLevel, (err) => {
-      if (err) {
-          setError('Failed to fetch vocabulary.');
-          console.log(error);
-          setVocab([]);
-      } else {
-          setError('');
-      }
-    });
+    // await fetchTocfl(newLevel, (err) => {
+    //   if (err) {
+    //       setError('Failed to fetch vocabulary.');
+    //       console.log(error);
+    //       setVocab([]);
+    //   } else {
+    //       setError('');
+    //   }
+    // });
     setUserSettings(prevSettings => ({
       ...prevSettings,
       TOCFL1: newLevel === 'TOCFL1',
@@ -104,9 +104,9 @@ const handleTagUpdate = (word, newTags) => {
       })
     );  
   };
-  useEffect(() => {
-    fetchTocfl("TOCFL1");
-  }, []);
+  // useEffect(() => {
+  //   fetchTocfl("TOCFL1");
+  // }, []);
 
   const increaseIndex = () => {
     setIndex(prevIndex => (prevIndex + 1) % vocab.length);

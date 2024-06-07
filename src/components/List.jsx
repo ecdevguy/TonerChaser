@@ -64,7 +64,7 @@ export default function List({ fetchTocfl, loading }) {
             ...JSON.parse(localStorage.getItem("TOCFL7")).map(cleanData)
             ];
             setUnfilteredList(data);
-            console.log("setting")
+            console.log("vocab list loaded!")
         } else {
             setUnfilteredList([]);
             console.log('not set');
@@ -90,11 +90,11 @@ export default function List({ fetchTocfl, loading }) {
     }, []);
 
 
-    useEffect(() => {
-        [1, 2, 3, 4, 5, 6, 7].map((num) => {
-            fetchTocfl(`TOCFL${num}`);
-        })
-    }, []);
+    // useEffect(() => {
+    //     [1, 2, 3, 4, 5, 6, 7].map((num) => {
+    //         fetchTocfl(`TOCFL${num}`);
+    //     })
+    // }, []);
 
     const filteredItems = useMemo(() => {
         let filteredByLevel = unfilteredList.filter(item => filterLevel.length === 0 || filterLevel.includes(item.L));
