@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { HashRouter, Routes, Route } from 'react-router-dom'
+import Homescreen from './components/Homescreen'
 import Study from './components/Study'
 import Challenge from './components/Challenge'
 import List from './components/List'
@@ -67,8 +68,8 @@ export default function App() {
       <HashRouter>
         <Routes>
           <Route path="/" element={<Layout mode={userSettings.darkMode} setMode={toggleDarkModeSetting}/>}>
-            {/* <Route index element={<Homescreen />} /> */}
-            <Route  index element={<Study fetchTocfl={fetchVocabData} loading={loading}/>} />
+            <Route index element={<Homescreen />} />
+            <Route  path='study' element={<Study fetchTocfl={fetchVocabData} loading={loading}/>} />
             <Route  path="challenge" element={<Challenge />} />
             <Route  path="search" element={<List fetchTocfl={fetchVocabData} loading={loading}/>} />
             <Route  path="settings" element={<Settings />} />

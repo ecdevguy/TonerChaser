@@ -110,7 +110,7 @@ function Header({ mode, setMode }) {
           <Link 
             component={RouterLink} 
             underline="none" 
-            to="/" 
+            to="/study" 
             color="inherit"
           >
             <Typography>Study</Typography>
@@ -126,7 +126,7 @@ function Header({ mode, setMode }) {
           >
             <Typography>Search</Typography>
           </Link>
-          <Box sx={{display: "flex", gap: "10px"}}>
+          {/* <Box sx={{display: "flex", gap: "10px"}}>
             {!user 
             && 
               <Button 
@@ -158,7 +158,7 @@ function Header({ mode, setMode }) {
                 </Link>
               </Button>
             }
-          </Box>
+          </Box> */}
         </Features>
         <Box>
           {mode === "dark" ?
@@ -198,7 +198,7 @@ function Header({ mode, setMode }) {
                 <Link 
                   component={RouterLink} 
                   underline="none" 
-                  to="/" 
+                  to="/study" 
                   color="inherit" 
                   onClick={handleClose}
                 >
