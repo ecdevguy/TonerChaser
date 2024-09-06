@@ -20,12 +20,13 @@ const style = {
 
   const styleAudio = {
     position: 'absolute',
-    top: '50%',
+    top: '40%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 210,
     bgcolor: 'background.paper',
     border: '2px solid #969696',
+    borderRadius: '5px',
     boxShadow: 24,
     p: 3,
   };
@@ -118,7 +119,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
 
     return (
         <Box>
-            <Card sx={{ minWidth: 360, minHeight: 360, p: 1 }}>
+            <Card sx={{ minWidth: 360, minHeight: 360, p: 1 }} elevation={8}>
                 <CardContent>
                     <Modal
                         open={open}
@@ -176,7 +177,7 @@ export default function Character({ word, pinyin, otherPinyin, level, firstTrans
 
                     <Divider sx={{ mb: 2 }} />
 
-                    <Typography variant='h6' fontWeight={300} maxWidth={360} marginBottom={3}>
+                    <Typography variant='h6' fontWeight={300} maxWidth={300} marginBottom={3}>
                         {firstTranslation}
                     </Typography>
 

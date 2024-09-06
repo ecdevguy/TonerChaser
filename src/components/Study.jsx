@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import Character from './Character'
 import SettingsContext from '../context/settingsContext';
-import { Box, Button, ButtonGroup, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
+import { Box, Button, ButtonGroup, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Paper } from '@mui/material';
 
 
 
@@ -28,8 +28,8 @@ export default function Study({ fetchTocfl, loading }) {
     setVocab(vocabList);
     if (
       localStorage.getItem("TOCFL1") && localStorage.getItem("TOCFL2") && localStorage.getItem("TOCFL3") && localStorage.getItem("TOCFL4") && localStorage.getItem("TOCFL5") && localStorage.getItem("TOCFL6") && localStorage.getItem("TOCFL7")
-    ) {
-        const data = [
+  ) {
+      const data = [
           ...JSON.parse(localStorage.getItem("TOCFL1")).map(cleanData), 
           ...JSON.parse(localStorage.getItem("TOCFL2")).map(cleanData),
           ...JSON.parse(localStorage.getItem("TOCFL3")).map(cleanData),
@@ -37,11 +37,11 @@ export default function Study({ fetchTocfl, loading }) {
           ...JSON.parse(localStorage.getItem("TOCFL5")).map(cleanData),
           ...JSON.parse(localStorage.getItem("TOCFL6")).map(cleanData),
           ...JSON.parse(localStorage.getItem("TOCFL7")).map(cleanData)
-        ];
-        data.forEach(item => item.tags && item.tags.forEach(tag => allLoadedTags.add(tag)));
-        setAllTags([...allLoadedTags]); 
-      }
-}, [userSettings, index, loading]);
+      ];
+      data.forEach(item => item.tags && item.tags.forEach(tag => allLoadedTags.add(tag)));
+      setAllTags([...allLoadedTags]); 
+  }
+}, [userSettings, loading]);
 
 const handleTagUpdate = (word, newTags) => {
   const updatedList = vocab.map(item => {
@@ -154,11 +154,11 @@ const handleTagUpdate = (word, newTags) => {
           onClick={() => decreaseIndex()}
         >Next</Button>
       </ButtonGroup>
+      <Paper elevation={3} sx={{ padding: '20px', textAlign: 'center', borderRadius: '2px' }}>
       <FormControl component="fieldset">
         <FormLabel 
           component="legend" 
-          sx={{paddingLeft: 4}}
-        >Level select
+        >Level Select
         </FormLabel>
         <RadioGroup 
           row 
@@ -175,6 +175,7 @@ const handleTagUpdate = (word, newTags) => {
         ))}
         </RadioGroup>
       </FormControl>
+      </Paper>
     </Box>
   )
 }

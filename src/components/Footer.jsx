@@ -24,7 +24,7 @@ export default function Footer() {
           <Typography 
             variant="caption" 
             color={"text.primary"}>
-            last updated: June, 2024
+            last updated: September, 2024
           </Typography>
         </Box>
       </Container>

@@ -68,7 +68,7 @@ export default function App() {
       <HashRouter>
         <Routes>
           <Route path="/" element={<Layout mode={userSettings.darkMode} setMode={toggleDarkModeSetting}/>}>
-            <Route index element={<Homescreen />} />
+            <Route index element={<Homescreen mode={userSettings.darkMode} />} />
             <Route  path='study' element={<Study fetchTocfl={fetchVocabData} loading={loading}/>} />
             <Route  path="challenge" element={<Challenge />} />
             <Route  path="search" element={<List fetchTocfl={fetchVocabData} loading={loading}/>} />

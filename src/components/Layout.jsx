@@ -11,7 +11,11 @@ export default function Layout({ mode, setMode}) {
       <main>
         <Outlet />
       </main>
+      <Box sx={{
+        marginTop: 10
+      }}>
       <Footer />
+      </Box>
     </Box>
   )
 }

@@ -3,7 +3,7 @@ import { FixedSizeList as ScrollList } from 'react-window';
 import _ from 'lodash';
 import Character from './Character';
 import ListCharacter from './ListCharacter';
-import { Grid, TextField, Checkbox, FormControlLabel, FormControl, FormLabel, FormGroup, Modal, Box, ListItemButton, Chip } from '@mui/material';
+import { Grid, TextField, Checkbox, FormControlLabel, FormControl, FormLabel, FormGroup, Modal, Box, ListItemButton, Chip, Paper } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
@@ -85,8 +85,10 @@ export default function List({ fetchTocfl, loading }) {
             });
             setUnfilteredList(loadedData);
             setAllTags([...allLoadedTags]);
+            setItem(loadedData[0]);
         };
         loadData();
+
     }, []);
 
 
@@ -95,6 +97,7 @@ export default function List({ fetchTocfl, loading }) {
     //         fetchTocfl(`TOCFL${num}`);
     //     })
     // }, []);
+
 
     const filteredItems = useMemo(() => {
         let filteredByLevel = unfilteredList.filter(item => filterLevel.length === 0 || filterLevel.includes(item.L));
@@ -147,34 +150,44 @@ export default function List({ fetchTocfl, loading }) {
 
     return (
         <>
+        <Box
+  sx={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    marginBottom: 4
+  }}
+>
+  <TextField
+    label="Search by Character or Tag" 
+    variant="outlined" 
+    sx={{ width: { xs: '90%', sm: '90%', md: '90%' }, maxWidth: '800px' }}
+    onChange={(e) => handleFilterChange(e.target.value)}
+    placeholder="輸入......"
+    autoFocus
+    margin="normal"
+  />
+</Box>
+
             <Grid 
                 container 
                 direction="row" 
                 justifyContent="center" 
-                spacing={14}
+                spacing={8}
             >
-                <Grid item>
+                <Grid item >
                     <Grid 
                         container 
                         direction="column" 
                         justifyContent="center" 
-                        rowSpacing={{ xs: 1, sm: 3 }} 
+                        rowSpacing={{ xs: 4, sm: 3 }} 
                         sx={{ width: { xs: "320px", sm: "445px" }}}
                     >
-                        <Grid item>
-                            <TextField
-                                label="Search by Character or Tag" 
-                                variant="outlined" 
-                                sx={{ width: { xs: "70%", sm: "95%" } }}
-                                onChange={(e) => handleFilterChange(e.target.value)}
-                                placeholder="輸入......"
-                                autoFocus
-                                margin="normal"
-                            />
-                        </Grid>
+                        
                         <Grid item>
                             <FormControl component="fieldset">
-                                <FormLabel component="legend">TOCFL levels</FormLabel>
+                                <FormLabel component="legend">Filter by TOCFL level:</FormLabel>
                                 <FormGroup 
                                     row 
                                     sx={{ width: { xs: "390px", sm: "450px" } }}
@@ -236,7 +249,7 @@ export default function List({ fetchTocfl, loading }) {
                             <FormLabel 
                                 component="legend" 
                                 sx={{mb: 0, alignSelf: 'center'}}
-                            >Tags:</FormLabel>
+                            >Filter by tags:</FormLabel>
                                 {allTags.map((tag, index) => (
                                     <Chip
                                         key={index}
@@ -251,19 +264,24 @@ export default function List({ fetchTocfl, loading }) {
                         <Grid 
                             item 
                             className='list--character'
+                            
                         >
                             <ScrollList
-                                height={400}
-                                width={480}
+                                height={600}
+                                width={410}//should be dynamic
                                 itemSize={75}
                                 itemCount={filteredItems.length}
                                 itemData={filteredItems}
                             >
                                 {Row}
                             </ScrollList>
+                            
                         </Grid>
+                        
                     </Grid>
+                    
                 </Grid>
+                
                 {matches && 
                 <Grid item alignContent="center">
                     {item && <Character
