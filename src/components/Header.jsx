@@ -107,6 +107,15 @@ function Header({ mode, setMode }) {
           >ToneChaser</Typography>
         </Link>
         <Features>
+           {mode === "dark" ?
+            <IconButton onClick={() => setMode(mode === "light" ? "dark" : "light")}>
+              <LightMode />
+            </IconButton> 
+            :
+            <IconButton onClick={() => setMode(mode === "dark" ? "light" : "dark")}>
+              <DarkModeOutlined sx={{ color:"white" }} />
+            </IconButton>
+          }
           <Link 
             component={RouterLink} 
             underline="none" 
@@ -125,6 +134,14 @@ function Header({ mode, setMode }) {
             color="inherit"
           >
             <Typography>Search</Typography>
+          </Link>
+          <Link 
+            component={RouterLink} 
+            underline="none" 
+            to="/settings" 
+            color="inherit"
+          >
+            <Typography>Settings</Typography>
           </Link>
           {/* <Box sx={{display: "flex", gap: "10px"}}>
             {!user 
@@ -160,16 +177,7 @@ function Header({ mode, setMode }) {
             }
           </Box> */}
         </Features>
-        <Box>
-          {mode === "dark" ?
-            <IconButton onClick={() => setMode(mode === "light" ? "dark" : "light")}>
-              <LightMode />
-            </IconButton> 
-            :
-            <IconButton onClick={() => setMode(mode === "dark" ? "light" : "dark")}>
-              <DarkModeOutlined sx={{ color:"white" }} />
-            </IconButton>
-          }
+        <Box sx={{display:{xs:"block", sm:"none"}}}>
           <Button
             id="basic-button"
             color="inherit"
@@ -235,7 +243,7 @@ function Header({ mode, setMode }) {
                 <Typography>Settings</Typography>
               </Link>
             </MenuItem>
-            {user ? 
+            {/* {user ? 
               <MenuItem onClick={handleLogOut}>
                 <Typography>Log Out</Typography>
               </MenuItem> 
@@ -251,7 +259,7 @@ function Header({ mode, setMode }) {
                   <Typography>Sign In</Typography>
                 </Link>
               </MenuItem>
-            }
+            } */}
           </Menu>
         </Box>
       </StyledToolbar>
