@@ -4,9 +4,10 @@ import { Link as RouterLink } from 'react-router-dom';
 
 function Homescreen({mode}) {
   return (
-    <Box sx={{ padding: '20px 0' }}>
+    <Box sx={{ padding: '20px 0', height: '100%' }}>
       <Container maxWidth="lg">
-        <Box
+        <Paper
+          elevation={2}
           sx={{
             textAlign: 'center',
             marginBottom: '40px',
@@ -15,31 +16,40 @@ function Homescreen({mode}) {
             borderRadius: '12px',
           }}
         >
-          <Typography variant="h3" gutterBottom>
+          <Typography variant="h4" gutterBottom>
             Learn Traditional Chinese Characters
           </Typography>
           <Typography variant="h6" sx={{ marginBottom: '20px' }}>
             A simple app to practice TOCFL levels 1 through 7
           </Typography>
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: 2
+          }}>
           <Button
             variant="contained"
             color="primary"
+            size='large'
             component={RouterLink}
             to="/study"
-            sx={{ marginRight: '10px' }}
           >
-            Start Studying
+            Study
           </Button>
           <Button
             variant="outlined"
             color="primary"
+            size='large'
             component={RouterLink}
             to="/search"
           >
-            Search Characters
+            Search
           </Button>
-        </Box>
-        <Grid container spacing={4}>
+          </Box>
+        </Paper>
+        <Grid container spacing={4} sx={{
+          marginBottom: 8
+        }}>
           <Grid item xs={12} md={6}>
             <Paper elevation={3} sx={{ padding: '20px', textAlign: 'center', borderRadius: '12px' }}>
               <Typography variant="h5" gutterBottom>

@@ -178,6 +178,15 @@ function Header({ mode, setMode }) {
           </Box> */}
         </Features>
         <Box sx={{display:{xs:"block", sm:"none"}}}>
+        {mode === "dark" ?
+            <IconButton onClick={() => setMode(mode === "light" ? "dark" : "light")}>
+              <LightMode />
+            </IconButton> 
+            :
+            <IconButton onClick={() => setMode(mode === "dark" ? "light" : "dark")}>
+              <DarkModeOutlined sx={{ color:"white" }} />
+            </IconButton>
+          }
           <Button
             id="basic-button"
             color="inherit"

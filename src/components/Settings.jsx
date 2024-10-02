@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import SettingsContext from '../context/settingsContext';
-import { Box, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, Typography } from '@mui/material';
+import { Box, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, Typography, Paper } from '@mui/material';
 import { HexColorPicker } from "react-colorful";
 
 export default function Settings() {
@@ -44,7 +44,7 @@ export default function Settings() {
                         <Typography variant='h5' style={{ color: color }}>Stroke Color Picker</Typography>
                     </FormLabel>
                     <FormGroup>
-                        <HexColorPicker color={color} onChange={handleColorChange} />
+                        <HexColorPicker color={color} onChange={handleColorChange}/>
                     </FormGroup>
                 </FormControl>
             </Grid>
